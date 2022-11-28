@@ -5,6 +5,9 @@ class  DataBase:
         self.name = name
         self.connection = sqlite3.connect(self.name)
         self.cursor = self.connection.cursor()
+        
+    def get_last_id(self):
+        return self.cursor.lastrowid
     
     def create_table(self, table_name, columns):
         self.cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({columns});")

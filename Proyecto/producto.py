@@ -13,6 +13,30 @@ class Producto:
     
     #getter y setter
     @property
+    def id_producto(self):
+        return self.__id_producto
+    
+    @id_producto.setter
+    def id_producto(self,id_producto):
+        self.__id_producto = id_producto
+        
+    @property
+    def id_categoria(self):
+        return self.__id_categoria
+    
+    @id_categoria.setter
+    def id_categoria(self,id_categoria):
+        self.__id_categoria = id_categoria
+    
+    @property
+    def id_codigo(self):
+        return self.__id_codigo
+    
+    @id_codigo.setter
+    def id_codigo(self,id_codigo):
+        self.__id_codigo = id_codigo    
+    
+    @property
     def Nombre(self):
         return self.__nombre
     
@@ -21,14 +45,41 @@ class Producto:
         self.__nombre = nombre
         
     @property
+    def precio_venta(self):
+        return self.__precio_venta
+    
+    @precio_venta.setter
+    def precio_venta(self,precio_venta):
+        self.__precio_venta = precio_venta   
+     
+    @property
+    def stock(self):
+        return self.__stock
+    
+    @stock.setter
+    def stock(self,stock):
+        self.__stock = stock   
+        
+    @property
+    def descripcion(self):
+        return self.__descripcion
+    
+    @descripcion.setter
+    def descripcion(self,descripcion):
+        self.__descripcion = descripcion 
+        
+    @property
     def Estado(self):
         return self.__estado
     
     @Estado.setter
     def Estado(self,estado):
-        self.__estado = estado
+        self.__estado = estado      
+        
+    def __str__(self):
+        return self.__nombre + " - " + str(self.__precio) + " - " + str(self.__stock) + " - " + str(self.__idcategoria)
     
-    def create_producto(self):
+    def crear_producto(self):
         db = sql.DataBase("superpy.db")
         db.insert("producto","codigo,nombre,precio_venta,stock,descripcion",
                 f"'{self.__codigo}','{self.__nombre}','{self.__precio_venta}','{self.__stock}','{self.__descripcion}'")
