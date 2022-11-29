@@ -1,14 +1,14 @@
 from Database import sql
 
 class Producto:
-    def __init__(self,id_producto = 0,id_categoria = 0,codigo="",nombre="",precio_venta = 0,stock = 0,descripcion = "",estado = 1):
+    def __init__(self,id_producto = 0,id_categoria = 0,codigo="",nombre="",precio_venta = 0,stock = 0,descripcion= "",estado = 1):
         self.__id_producto = id_producto
         self.__id_categoria = id_categoria
         self.__codigo = codigo
         self.__nombre = nombre
         self.__precio_venta = precio_venta
         self.__stock = stock
-        self._descripcion = descripcion
+        self.__descripcion = descripcion
         self.__estado = estado
     
     #getter y setter
@@ -77,7 +77,7 @@ class Producto:
         self.__estado = estado      
         
     def __str__(self):
-        return self.__nombre + " - " + str(self.__precio) + " - " + str(self.__stock) + " - " + str(self.__idcategoria)
+        return self.__nombre + " - " + str(self.__precio_venta) + " - " + str(self.__stock) + " - " + str(self.__id_categoria)
     
     def crear_producto(self):
         db = sql.DataBase("superpy.db")

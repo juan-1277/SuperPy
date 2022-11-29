@@ -37,9 +37,9 @@ while runing:
    print("#####################################")
    runing = True
    while runing:
-      print("###########")
+      print("")
       print("Opciones")
-      print("###########")
+      print("")
       #agregando las Opciones
       print("1 - Productos")
       print("2 - Usuarios")
@@ -47,7 +47,6 @@ while runing:
       print("0 - Salir del Sistema ")
       print("")
       opcion = int(input("Elija opcion : "))
-      
       if opcion == 1:
           sub_opcion = -1
           while sub_opcion != 0:
