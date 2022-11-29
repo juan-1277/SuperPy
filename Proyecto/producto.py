@@ -1,99 +1,125 @@
 from Database import sql
 
 class Producto:
-    def __init__(self,id_producto = 0,id_categoria = 0,codigo="",nombre="",precio_venta = 0,stock = 0,descripcion= "",estado = 1):
-        self.__id_producto = id_producto
-        self.__id_categoria = id_categoria
+    def __init__(self, codigo= "", nombre = "", precio = "", stock = "",descripcion="",id_producto = "",  id_categoria = 0):
+        self.__idproducto = id_producto
         self.__codigo = codigo
         self.__nombre = nombre
-        self.__precio_venta = precio_venta
+        self.__precio = precio
         self.__stock = stock
         self.__descripcion = descripcion
-        self.__estado = estado
-    
-    #getter y setter
+        self.__idcategoria = id_categoria
+
     @property
-    def id_producto(self):
-        return self.__id_producto
+    def Idproducto(self):
+        return self.__idproducto
     
-    @id_producto.setter
-    def id_producto(self,id_producto):
-        self.__id_producto = id_producto
+    @Idproducto.setter
+    def Idproducto(self, id_producto):
+        self.__idproducto = id_producto
+    
+    @property
+    def Codigo(self):
+        return self.__codigo
+    
+    @Codigo.setter
+    def Codigo(self,codigo):
+        self.__codigo = codigo
         
-    @property
-    def id_categoria(self):
-        return self.__id_categoria
-    
-    @id_categoria.setter
-    def id_categoria(self,id_categoria):
-        self.__id_categoria = id_categoria
-    
-    @property
-    def id_codigo(self):
-        return self.__id_codigo
-    
-    @id_codigo.setter
-    def id_codigo(self,id_codigo):
-        self.__id_codigo = id_codigo    
-    
     @property
     def Nombre(self):
         return self.__nombre
     
     @Nombre.setter
-    def Nombre(self,nombre):
+    def Nombre(self, nombre):
         self.__nombre = nombre
-        
-    @property
-    def precio_venta(self):
-        return self.__precio_venta
     
-    @precio_venta.setter
-    def precio_venta(self,precio_venta):
-        self.__precio_venta = precio_venta   
-     
     @property
-    def stock(self):
+    def Precio(self):
+        return self.__precio
+    
+    @Precio.setter
+    def Precio(self, precio):
+        self.__precio = precio
+    
+    @property
+    def Stock(self):
         return self.__stock
     
-    @stock.setter
-    def stock(self,stock):
-        self.__stock = stock   
-        
+    @Stock.setter
+    def Stock(self, stock):
+        self.__stock = stock
+    
     @property
-    def descripcion(self):
+    def Descripcion(self):
         return self.__descripcion
     
-    @descripcion.setter
-    def descripcion(self,descripcion):
-        self.__descripcion = descripcion 
+    @Descripcion.setter
+    def Descripcion(self,descripcion):
+        self.__descripcion = descripcion
         
     @property
-    def Estado(self):
-        return self.__estado
+    def Idcategoria(self):
+        return self.__idcategoria
     
-    @Estado.setter
-    def Estado(self,estado):
-        self.__estado = estado      
-        
+    @Idcategoria.setter
+    def Idcategoria(self, categoria):
+        self.__idcategoria = categoria
+    
     def __str__(self):
-        return self.__nombre + " - " + str(self.__precio_venta) + " - " + str(self.__stock) + " - " + str(self.__id_categoria)
+        return self.__nombre + " - " + str(self.__precio) + " - " + str(self.__stock) + " - " + str(self.__idcategoria)
     
-    def crear_producto(self):
-        db = sql.DataBase("superpy.db")
-        db.insert("producto","codigo,nombre,precio_venta,stock,descripcion",
-                f"'{self.__codigo}','{self.__nombre}','{self.__precio_venta}','{self.__stock}','{self.__descripcion}'")
-    
-    def get_all_producto(self):
-        db = sql.DataBase("superpy.db")
-        producto = db.select_all("producto","codigo,nombre,precio_venta,stock,descripcion")
-        return producto
+    def crearProducto(self):
+        db = sql.DataBase('superpy.db')
+        self.__codigo = input("Ingrese el codigo del Producto: ")
+        self.__nombre = input("Ingrese el nombre del producto: ")
+        self.__precio = float(input("Ingrese el precio del producto: "))
+        self.__stock = int(input("Ingrese el stock del producto: "))
+        self.__descripcion = input("Ingrese la descripcion : ")
+        categorias = db.select("categoria","id_categoria,nombre","estado = 1")
+        print("Nro\tNombre")
+        for categoria in categorias:
+            print(f"{categoria[0]}\t{categoria[1]}")
+        self.__idcategoria = input("Ingrese la categoria del producto: ")
+        db.insert("producto","id_categoria,codigo,nombre,precio_venta,stock,descripcion",
+                  f"{self.__idcategoria},'{self.__codigo}','{self.__nombre}','{self.__precio}','{self.__stock}','{self.__descripcion}'")
+        db.close()        
 
-    def update_producto(self,id,datos):
+    def actualizarProducto(self,id_producto):
         db = sql.DataBase("superpy.db")
-        for k,v in datos:
-            db.update("producto",k,v,f"id_producto = {id}")
+        print("Si no desea Modificar el Dato Solo Presione Enter")
+        print("Hasta llegar al Dato que quiere modificar")
+        producto = db.select("producto","id_categoria,codigo,nombre,precio_venta,stock,descripcion",f"id_producto = {id_producto} ")
+        self.__codigo = input(f"Modifique el Codigo : {producto[0][1]} ") or producto[0][1]
+        self.__nombre = input(f"Modifique el Nombre :  {producto[0][1]} ") or producto[0][2]
+        self.__precio = float(input(f"Modifique el Precio : {producto[0][3]} ")) or producto[0][3]
+        self.__stock = int(input(f"Modifique el Stock : {producto[0][4]} ")) or producto[0][4]
+        self.__descripcion = input(f"Modifique el descripcion : {producto[0][5]} ") or producto[0][5]
+        categorias = db.select("categoria","id_categoria,nombre","estado = 1")
+        print("Nro\tCategoria")
+        for categoria in categorias:
+            if categoria[0][0] == categoria[0] :
+                nombre = categoria[1]
+            print(f"{categoria[0]} - {categoria[1]}")
+        self.__idcategoria = input(f"Modifique la Categoria {nombre} Ingrese un numero : ") or categoria[0][0]
+        db.update("producto","codigo",f"'{self.__codigo}'",f"id_producto = {id_producto}")
+        db.update("producto","nombre",f"'{self.__nombre}'",f"id_producto = {id_producto}")
+        db.update("producto","precio_venta",f"'{self.__precio}'",f"id_producto = {id_producto}")
+        db.update("producto","stock",f"'{self.__stock}'",f"id_producto = {id_producto}")
+        db.update("producto","descripcion",f"'{self.__descripcion}'",f"id_producto = {id_producto}")
+        db.update("producto","id_categoria",f"'{self.__idcategoria}'",f"id_producto = {id_producto}")
+        db.close()
     
-    def delete_producto(self,id):
+    def listarProducto(self):
         db = sql.DataBase("superpy.db")
-        db.update("producto","estado",0,f"id_producto = {id}")
+        productos = db.select_all("producto","id_producto,id_categoria,codigo,nombre,precio_venta,stock,descripcion")
+        print("Nro\tCategoria\tcodigo\t\tnombre\t\tprecio\tstock\tdescripcion")
+        for producto in productos:
+            categoria = db.select("categoria","nombre",f"id_categoria = {producto[1]}")
+            print(f"{producto[0]}\t{categoria[0][0]}\t\t{producto[2]}\t\t{producto[3]}\t{producto[4]}\t{producto[5]}\t{producto[6]}")
+        db.close()
+        
+    def eliminarProducto(self,id_producto):
+        db = sql.DataBase("superpy.db")
+        db.update("producto","estado","0",f"id_producto = {id_producto}")
+        db.close()

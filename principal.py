@@ -4,6 +4,7 @@ from Proyecto.producto import Producto
 from Login.rol import Rol
 from Login.usuario import Usuario
 from Proyecto.categoria import Categoria
+from Proyecto.venta import Venta
 from os import system
 #from progress.bar import Bar
 import time,random
@@ -54,10 +55,10 @@ while runing:
                print("########################################")
                print("#############  PRODUCTOS  ##############")
                print("########################################")          
-               print("1 - Crear un producto")
-               print("2 - Mostrar todos los productos")
-               print("3 - Modificar un producto") 
-               print("4 - Eliminar un producto") 
+               print("1 - Crear Producto ")
+               print("2 - Actualizar Producto ")
+               print("3 - Eliminar Producto ")
+               print("4 - Ver Todos los productos ") 
                print("5 - Crear Categoria ")
                print("6 - Actualizar Categoria ")
                print("7 - Eliminar Categoria ")
@@ -68,42 +69,28 @@ while runing:
                print("")
                system("cls")
                if sub_opcion == 1:
-                  codigo = input("Codigo del producto : ")
-                  nombre = input("Nombre del producto : ")
-                  precio_venta = float(input("Precio de venta del producto : "))
-                  stock = int(input("Stock del producto : "))
-                  descripcion = input("Descripcion del producto : ")
-                  producto = Producto(codigo,nombre,precio_venta,stock,descripcion)
-                  producto.crear_producto()
-               elif sub_opcion == 2:
                   producto = Producto()
-                  print(producto.get_all_producto())
-                  volver = int(input("0 - Volver "))
+                  producto.crearProducto()
+               elif sub_opcion == 2:
+                producto = Producto()
+                producto.listarProducto()
+                print("0 - Volver ")
+                print("")
+                id_producto = int(input("Ingrese un numero de producto: "))
+                if id_producto != 0:
+                    producto.actualizarProducto(id_producto)
                elif sub_opcion == 3:
-                     producto = Producto()
-                     print("\tCodigo\tNombre\tPrecio_venta\tStock\tDescripcion")
-                     id = 1
-                     for prod in producto.get_all_producto():
-                        print(f"{id} -  {prod[0]}\t - {prod[1]} - {prod[2]}")
-                     producto_select = input("Ingrese id del producto a actualizar : ")
-                     codigo = input("Codigo del producto : ")
-                     nombre = input("Nombre del producto : ")
-                     precio_venta = float(input("Precio de venta del producto : "))
-                     stock = int(input("Stock del producto : "))
-                     descripcion = input("Descripcion del producto : ")
-                     datos = {"codigo":codigo,"nombre":nombre,"precio_venta":precio_venta,"stock":stock, "descripcion":descripcion}
-                     producto.update_producto(datos)
-                     volver = int(input("0 - Volver "))
+                producto = Producto()
+                producto.listarProducto()
+                print("0 - Volver ")
+                print("")
+                id_producto = int(input("Ingrese un numero de producto: "))
+                if id_producto != 0:
+                    producto.eliminarProducto(id_producto)
                elif sub_opcion == 4:
-                     producto = Producto()
-                     print("\tCodigo\tNombre\tPrecio_venta\tStock\tDescripcion")
-                     id = 1
-                     for prod in producto.get_all_producto():
-                        print(f"{id} -  {prod[0]}\t - {prod[1]} - {prod[2]}")
-                        id += 1 
-                     producto_select = input("Ingrese id del producto a eliminar : ")
-                     producto.delete_producto(producto_select)
-                     volver = int(input("0 - Volver "))
+                producto = Producto()
+                producto.listarProducto()
+                volver = int(input("0 - Volver "))
                elif sub_opcion == 5:
                 categoria = Categoria()
                 categoria.create_categoria()
@@ -126,5 +113,70 @@ while runing:
                   volver = int(input("0 - Volver "))
                else:
                   sub_opcion = 0
-                
+      if opcion == 2:
+          sub_opcion = -1
+          while sub_opcion != 0:
+               system("cls")
+               print("#######################################")
+               print("#############  USUARIOS  ##############")
+               print("#######################################")          
+               print("1 - Crear Usuario ")
+               print("2 - Actualizar Usuario ")
+               print("3 - Eliminar Usuario ")
+               print("4 - Ver Todos los Usuario ") 
+               print("0 - Volver ")
+               print("")
+               sub_opcion = int(input("Elija opcion : "))
+               print("")
+               system("cls")
+               if sub_opcion == 1:
+                  usuario = Usuario()
+                  usuario.crearUsuario()
+               elif sub_opcion == 2:
+                  usuario = Usuario()
+                  usuario.modificarUsuario()
+                  print("0 - Volver ")
+                  print("")
+               elif sub_opcion == 3:
+                  usuario = Usuario()
+                  usuario.all_usuario()
+                  print("0 - Volver ")
+                  print("")
+                  id_usuario = int(input("Ingrese usuario: "))
+                  if id_usuario != 0:
+                    usuario.eliminarUsuario(id_usuario)
+               elif sub_opcion == 4:
+                  usuario = Usuario()
+                  usuario.all_usuario()
+                  volver = int(input("0 - Volver "))
+      if opcion == 3:
+          sub_opcion = -1
+          while sub_opcion != 0:
+               system("cls")
+               print("#####################################")
+               print("#############  VENTAS  ##############")
+               print("#####################################")          
+               print("1 - Crear Venta ")
+               print("2 - Anular Venta ")
+               print("4 - Ver Todas las Ventas ") 
+               print("0 - Volver ")
+               print("")
+               sub_opcion = int(input("Elija opcion : "))
+               print("")
+               system("cls")
+               if sub_opcion == 1:
+                  venta = Venta()
+                  venta.crearVenta()
+               elif sub_opcion == 2:
+                  venta = Venta()
+                  venta.all_venta()
+                  print("0 - Volver ")
+                  print("")
+                  id_venta = int(input("Ingrese la venta: "))
+                  if id_venta != 0:
+                    venta.anularVenta(id_venta)
+               elif sub_opcion == 4:
+                  venta = Venta()
+                  venta.all_venta()
+                  volver = int(input("0 - Volver "))          
 runing = False
