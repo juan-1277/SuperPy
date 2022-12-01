@@ -1,8 +1,6 @@
 from Database import sql
-
-
 class Rol:
-    def __init__(self, id, nombre, descripcion):
+    def __init__(self, id = 0, nombre = "", descripcion = ""):
         self.__id = id
         self.__nombre = nombre
         self.__descripcion = descripcion
@@ -47,7 +45,7 @@ class Rol:
         print("Hasta llegar al Dato que quiere modificar")
         rol = db.select("rol","id_rol,nombre,descripcion",f"id_rol = {id_rol}")
         self.__nombre = input(f"Modifique el Nombre :  {rol[0][1]} ") or rol[0][1]
-        self.__descripcion = input(f"Modifique el Apellido : {rol[0][1]} ") or rol[0][2]
+        self.__descripcion = input(f"Modifique la Descripcion : {rol[0][2]} ") or rol[0][2]
         db.update("rol","nombre",f"'{self.__nombre}'",f"id_rol = {id_rol}")
         db.update("rol","descripcion",f"'{self.__descripcion}'",f"id_rol = {id_rol}")
         db.close()

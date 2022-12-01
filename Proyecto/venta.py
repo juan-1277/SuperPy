@@ -1,7 +1,7 @@
 from Database import sql
-from producto import Producto
-from cliente import Cliente
-from detalle_venta import DetalleVenta
+from Proyecto.producto import Producto
+from Proyecto.cliente import Cliente
+from Proyecto.detalle_venta import DetalleVenta
 from datetime import datetime
 
 class Venta:
@@ -69,19 +69,19 @@ class Venta:
     def crearVenta(self):
         db = sql.DataBase("superpy.db")
         persona = Cliente()
-        print("###################################################")
-        print("Selecione un Cliente : ")
+        print("-------------------------------------------------")
+        print("Seleccione un Cliente ")
         print("Si no encuentra al Cliente dar de Alta en cliente")
         persona.listarClientes()
         print("")
         self.__cliente = input("Ingrese el Nro de Cliente : ")
-        print("###################################################")
+        print("-------------------------------------------------")
         print("")
         self.__tipoComprobante = input("Ingrese el Tipo de Comprobante : ")
         print("")
         self.__nro_comprobante = input("Ingrese Serie de Comprobante : ")
         print("")
-        print("#############Seleccione el Producto################")
+        print("------------- Seleccione el Producto -------------")
         producto = Producto()
         runnig = True
         while runnig:
@@ -93,7 +93,7 @@ class Venta:
             subtotal = producto[0][0] * cantidad
             detalles = DetalleVenta(id_producto, cantidad,subtotal)
             self.__total += subtotal 
-            opcion = input("Desea Ingresar mas Productos 1 - SI  0 - NO")
+            opcion = input("Desea Ingresar mas Productos?\n 1 - SI\n  0 - NO")
             if opcion == 0:
                 runnig = False
         print("####################################################")

@@ -3,17 +3,17 @@ from Database import sql
 class Categoria:
 
     def __init__(self, nombre= "", descripcion= "",id_categoria=0):
-        self.__idcategoria = id_categoria
+        self.__id_categoria = id_categoria
         self.__nombre = nombre
         self.__descripcion = descripcion
     
     @property
-    def Idcategoria(self):
-        return self.__idcategoria
+    def Id_categoria(self):
+        return self.__id_categoria
     
-    @Idcategoria.setter
-    def Idcategoria(self,id_categoria):
-        self.__idcategoria = id_categoria
+    @Id_categoria.setter
+    def Id_categoria(self,id_categoria):
+        self.__id_categoria = id_categoria
         
     @property
     def Nombre(self):
@@ -34,7 +34,7 @@ class Categoria:
     def __str__(self):
         return self.__nombre + " - " + self.__descripcion
 
-    def create_rol(self):
+    def create_categoria(self):
         nombre = input("Nombre de la categoria : ")
         descripcion = input("Descripcion: ")
         db = sql.DataBase('superpy.db')
@@ -57,7 +57,7 @@ class Categoria:
         db.update("categoria","estado","0",f"id_categoria = {id_categoria}")
         db.close()
 
-    def all_categoria(self):
+    def listar_categoria(self):
         db = sql.DataBase("superpy.db")
         categorias = db.select_all("categoria","id_categoria,nombre,descripcion")
         print("NRO     Nombre    Descripcion")

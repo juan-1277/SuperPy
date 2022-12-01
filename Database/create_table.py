@@ -18,7 +18,7 @@ db.create_table("usuario","id_usuario INTEGER PRIMARY KEY AUTOINCREMENT," +
                           "estado INTEGER DEFAULT 1" 
                 )
 
-db.create_table("persona","id_persona INTEGER PRIMARY KEY AUTOINCREMENT," +
+db.create_table("cliente","id_cliente INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "nombre TEXT(50)," +
                         "apellido TEXT(50)," +
                         "dni TEXT(11)," + 
@@ -26,8 +26,7 @@ db.create_table("persona","id_persona INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "fecha_nacimiento datetime," +
                         "telefono TEXT(9)," +
                         "email TEXT(50)," +
-                        "tipo_persona TEXT(20) DEFAULT 'Cliente'," +
-                        "tipo_responsabilidad TEXT(30),"+
+                        "condicion_fiscal TEXT(30),"+
                         "estado INTEGER DEFAULT 1"
                 )
 
