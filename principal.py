@@ -6,7 +6,7 @@ from Proyecto.cliente import Cliente
 from Proyecto.detalle_venta import DetalleVenta
 from Proyecto.venta import Venta
 from os import system
-from progress.bar import Bar
+#from progress.bar import Bar
 import time,random
 
 """ login = True
