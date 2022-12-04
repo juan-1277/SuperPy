@@ -2,6 +2,10 @@ import tkinter
 ventana = tkinter.Tk()
 ventana.geometry("400x300")
 
+
+def close(): #corresponde a la funcion para cerrar la ventana Tkinter, invocada en el boton "Exit"
+    ventana.destroy()
+
 boton1 = tkinter.Button(ventana, text = "Productos", bg = "orange")
 boton1.pack()
 
@@ -11,8 +15,7 @@ boton2.pack()
 boton3 = tkinter.Button(ventana, text = "Ventas", bg = "orange")
 boton3.pack()
 
-boton4 = tkinter.Button(ventana, text = "Salir", bg = "orange")
-boton4.pack()
-
+boton_exit = tkinter.Button(ventana, text = "Exit", bg = "orange", command = close)
+boton_exit.pack()
 
 ventana.mainloop()
