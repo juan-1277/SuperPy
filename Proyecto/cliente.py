@@ -148,9 +148,10 @@ class Cliente:
     
     def listarClientes(self):
         db = sql.DataBase("superpy.db")
-        clientes = db.select_all("cliente","id_cliente,nombre,apellido,dni,direccion,telefono,fecha_nacimiento,email,condicion_fiscal")
-        print("Nro\tnombre\tapellido\tdni\tdireccion\t\ttelefono\tfecha_nacimiento\temail\tcondicion_fiscal")
+        clientes = db.select_all("cliente","id_cliente,nombre,apellido,dni,direccion,telefono,fecha_nacimiento,email,condicion_fiscal,estado")
+        print("Nro\tnombre\tapellido\tdni\tdireccion\ttelefono\tfecha_nacimiento\temail\tcondicion_fiscal")
         for cliente in clientes:
-            print(f"{cliente[0]}\t{cliente[1]}\t{cliente[2]}\t{cliente[3]}\t{cliente[4]}\t\t{cliente[5]}\t{cliente[6]}\t{cliente[7]}\t{cliente[8]}")
+            if self.__estado == 1:
+                print(f"{cliente[0]}\t{cliente[1]}\t{cliente[2]}\t{cliente[3]}\t{cliente[4]}\t\t{cliente[5]}\t{cliente[6]}\t{cliente[7]}\t{cliente[8]}")
         db.close()       
         

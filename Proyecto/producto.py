@@ -119,7 +119,7 @@ class Producto:
     def listarProducto(self):
         db = sql.DataBase("superpy.db")
         productos = db.select_all("producto","id_producto,id_categoria,codigo,nombre,precio_venta,stock,descripcion")
-        print("Nro\tCategoria\tcodigo\t\tnombre\t\tprecio\tstock\tdescripcion")
+        print("Nro\tCategoria\tcodigo\t\t\tnombre\t\tprecio\tstock\tdescripcion")
         for producto in productos:
             categoria = db.select("categoria","nombre",f"id_categoria = {producto[1]}")
             print(f"{producto[0]}\t{categoria[0][0]}\t\t{producto[2]}\t\t{producto[3]}\t{producto[4]}\t{producto[5]}\t{producto[6]}")

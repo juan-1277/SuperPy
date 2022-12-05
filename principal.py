@@ -29,7 +29,7 @@ while login:
         print(e + "Inicio de Sesion Incorrecto")
 print("Has iniciado sesion")
 
-bar = Bar('Cargando Sistema', max=100)
+bar = Bar('Cargando Sistema', max=10)
 for num in range(100):
     time.sleep(random.uniform(0, 0.1))
     bar.next()
@@ -193,7 +193,7 @@ while runing:
             print("1 - Crear Cliente ")
             print("2 - Modificar Cliente ")
             print("3 - Eliminar Cliente ")
-            print("4 - Nostrar Clientes ")
+            print("4 - Mostrar Clientes ")
             print("5 - Crear Venta ")
             print("6 - Anular Venta ")
             print("7 - Mostrar Ventas ")
@@ -254,8 +254,8 @@ print("")
 print("Sesion Terminada")
 print("")
 
-bar = Bar('Cerrando Sistema', max=100)
-for num in range(100):
+bar = Bar('Cerrando Sistema', max=10)
+for num in range(10):
     time.sleep(random.uniform(0, 0.1))
     bar.next()
 bar.finish()

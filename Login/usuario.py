@@ -1,14 +1,14 @@
 from Database import sql
 class Usuario:
 
-    def __init__(self, id=0, nombre="", apellido="", dni="", email="", password="", idrol=0, estado=1):
+    def __init__(self, id=0, nombre="", apellido="", dni="", email="", password="", id_rol=0, estado=1):
         self.__id = id
         self.__nombre = nombre
         self.__apellido = apellido
         self.__dni = dni
         self.__email = email
         self.__password = password
-        self.__idrol = idrol
+        self.__id_rol = id_rol
         self.__estado = estado
 
     @property
@@ -61,11 +61,11 @@ class Usuario:
     
     @property
     def Idrol(self):
-        return self.__idrol
+        return self.__id_rol
     
     @Idrol.setter
-    def Idrol(self,idrol):
-        self.__idrol = idrol
+    def Idrol(self,id_rol):
+        self.__id_rol = id_rol
         
     @property
     def Estado(self):
@@ -86,13 +86,13 @@ class Usuario:
         self.__password = input("Ingrese el password del usuario: ")
         print("Elija un Rol para este Usuario")
         db = sql.DataBase("superpy.db")
-        roles = db.select("rol","id_rol,nombre","estado = 1")
+        roles = db.select("rol","i_drol,nombre","estado = 1")
         print("Nro   Role")
         for rol in roles:
             print(f"{rol[0]} - {rol[1]}")
-        self.__idrol = input("Ingrese el numero correspondiente al Rol : ")
-        db.insert("usuario","nombre,apellido,dni,email,password,idrol",
-                  f"'{self.__nombre}','{self.__apellido}','{self.__dni}','{self.__email}','{self.__password}',{self.__idrol}")
+        self.__id_rol = input("Ingrese el numero correspondiente al Rol : ")
+        db.insert("usuario","nombre,apellido,dni,email,password,id_rol",
+                  f"'{self.__nombre}','{self.__apellido}','{self.__dni}','{self.__email}','{self.__password}',{self.__id_rol}")
         db.close()
         
 
@@ -132,13 +132,13 @@ class Usuario:
             if usuario[0][0] == rol[0] :
                 nombre = rol[1]
             print(f"{rol[0]} - {rol[1]}")
-        self.__idrol = input(f"Modifique el Rol {nombre} Ingrese un numero : ") or usuario[0][0]
+        self.__id_rol = input(f"Modifique el Rol {nombre} Ingrese un numero : ") or usuario[0][0]
         db.update("usuario","nombre",f"'{self.__nombre}'",f"id_usuario = {id_usuario}")
         db.update("usuario","apellido",f"'{self.__apellido}'",f"id_usuario = {id_usuario}")
         db.update("usuario","dni",f"'{self.__dni}'",f"id_usuario = {id_usuario}")
         db.update("usuario","email",f"'{self.__email}'",f"id_usuario = {id_usuario}")
         db.update("usuario","password",f"'{self.__password}'",f"id_usuario = {id_usuario}")
-        db.update("usuario","id_rol",f"'{self.__idrol}'",f"id_usuario = {id_usuario}")
+        db.update("usuario","id_rol",f"'{self.__id_rol}'",f"id_usuario = {id_usuario}")
         db.close()
         
     def eliminarUsuario(self,id_usuario):

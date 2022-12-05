@@ -14,7 +14,7 @@ db.create_table("usuario","id_usuario INTEGER PRIMARY KEY AUTOINCREMENT," +
                           "dni TEXT," +
                           "email TEXT,"  +
                           "password TEXT," + 
-                          "idrol INTEGER," +
+                          "id_rol INTEGER," +
                           "estado INTEGER DEFAULT 1" 
                 )
 
@@ -22,11 +22,11 @@ db.create_table("cliente","id_cliente INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "nombre TEXT(50)," +
                         "apellido TEXT(50)," +
                         "dni TEXT(11)," + 
-                        "direccion TEXT(50)," +
+                        "direccion TEXT(100)," +
                         "fecha_nacimiento datetime," +
-                        "telefono TEXT(9)," +
-                        "email TEXT(50)," +
-                        "condicion_fiscal TEXT(30),"+
+                        "telefono TEXT(15)," +
+                        "email TEXT(100)," +
+                        "condicion_fiscal TEXT(100),"+
                         "estado INTEGER DEFAULT 1"
                 )
 
@@ -37,7 +37,7 @@ db.create_table("venta",
                 "nro_comprobante TEXT(7),"+
                 "fecha TEXT(10),"+
                 "total REAL,"+
-                "estado TEXT(20) DEFAULT 'EXITOSA',"+
+                "estado INTEGER DEFAULT 1,"+
                 "id_usuario INTEGER"
                 )
 
@@ -46,15 +46,14 @@ db.create_table("detalle_venta",
                 "id_venta INTEGER,"+
                 "id_producto INTEGER,"+
                 "cantidad INTEGER,"+
-                "precio REAL,"+
-                "descuento REAL DEFAULT 0"
+                "precio REAL"
                 )
 
 db.create_table("producto",
                 "id_producto INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "id_categoria INTEGER,"+
                 "codigo TEXT(20)," +
-                "nombre TEXT(50),"+
+                "nombre TEXT(70),"+
                 "precio_venta REAL,"+
                 "stock INTEGER,"+
                 "descripcion TEXT(256),"+
@@ -63,7 +62,7 @@ db.create_table("producto",
 
 db.create_table("categoria",
                 "id_categoria INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                "nombre TEXT(50),"+
+                "nombre TEXT(100),"+
                 "descripcion TEXT(256),"+
                 "estado INTEGER DEFAULT 1"
                 )

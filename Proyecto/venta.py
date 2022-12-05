@@ -2,11 +2,12 @@ from Database import sql
 from Proyecto.producto import Producto
 from Proyecto.cliente import Cliente
 from Proyecto.detalle_venta import DetalleVenta
+from Login.usuario import Usuario
 from datetime import datetime
 
 class Venta:
 
-    def __init__(self, cliente = 0, tipo_comprobante="", nro_comprobante="", fecha="", total=0.0, detalle=[],id_venta = 0):
+    def __init__(self, cliente = 0, tipo_comprobante="", nro_comprobante="", fecha="", total=0.0, detalle=[],id_venta = 0,id_usuario = 0):
         self.__cliente = cliente
         self.__fecha = fecha
         self.__total = total
@@ -14,6 +15,7 @@ class Venta:
         self.__tipoComprobante = tipo_comprobante
         self.__nro_comprobante = nro_comprobante
         self.__idventa = id_venta
+        self.__id_usuario = id_usuario
     
     @property
     def Cliente(self):
@@ -63,6 +65,14 @@ class Venta:
     def NroComprobante(self,nro_comprobante):
         self.__nro_comprobante = nro_comprobante
         
+    @property
+    def Id_usuario(self):
+        return self.__id_usuario
+    
+    @Id_usuario.setter
+    def id_usuario(self, id_usuario):
+        self.__id_usuario = id_usuario
+        
     def __str__(self):
         return self.__cliente + " - " + self.__fecha + " - " + str(self.__total)
     
@@ -79,46 +89,47 @@ class Venta:
         print("")
         self.__tipoComprobante = input("Ingrese el Tipo de Comprobante : ")
         print("")
-        self.__nro_comprobante = input("Ingrese Serie de Comprobante : ")
+        self.__nro_comprobante = input("Ingrese N° Comprobante : ")
         print("")
         print("------------- Seleccione el Producto -------------")
-        producto = Producto()
+        detalles=[]
         runnig = True
         while runnig:
+            producto = Producto()
             producto.listarProducto()
             print("")
             id_producto = int(input("Ingrese el Nro del producto: "))
             cantidad = int(input("Ingrese la cantidad del producto: "))
-            producto = db.select("productos","precio_venta",f"id_producto = {id_producto}")
+            producto = db.select("producto","precio_venta",f"id_producto = {id_producto}")
             subtotal = producto[0][0] * cantidad
-            detalles = DetalleVenta(id_producto, cantidad,subtotal)
+            detalles.append(DetalleVenta(id_producto, cantidad,subtotal))
             self.__total += subtotal 
-            opcion = input("Desea Ingresar mas Productos?\n 1 - SI\n  0 - NO")
+            opcion = int(input("Desea Ingresar otros Productos?\n 1 - SI\n 0 - NO\n "))
             if opcion == 0:
                 runnig = False
         print("####################################################")
         self.__fecha = datetime.today()
-        db.insert("venta","id_cliente,tipo_comprobante,nro_comprobante,fecha,total",
-                  f"'{self.__cliente}','{self.__tipoComprobante}','{self.__nro_comprobante}'"+
-                  f"'{self.__fecha}','{self.__total}'")
+        self.__id_usuario = Usuario.Id()
+        db.insert("venta","id_cliente,tipo_comprobante,nro_comprobante,fecha,total,id_usuario",
+                  f"'{self.__cliente}','{self.__tipoComprobante}','{self.__nro_comprobante}','{self.__fecha}','{self.__total}','{self.__id_usuario}'")
         self.__idventa = db.get_last_id()
         for detalle in detalles:
-            db.insert("detalle_venta","id_venta,id_producto,cantidad,subtotal,descuento",
-                  f"'{self.__idventa}','{detalle[0]}','{detalle[1]}','{detalle[2]}'")
+            db.insert("detalle_venta","id_venta,id_producto,cantidad,precio",
+                  f"'{self.__idventa}','{detalle.idproducto}','{detalle.Cantidad}','{detalle.Subtotal}'")
         db.close()
         
     def anularVenta(self,id_venta):
         db = sql.DataBase("superpy.db")
-        db.update("venta","estado","ANULADA",f"WHERE id_venta = {id_venta}")
+        db.update("venta","estado",0,f"id_venta = {id_venta}")
         db.close()
     
     def all_venta(self):
         db = sql.DataBase("superpy.db")
-        ventas = db.select_all("venta","id_venta,id_cliente,tipo_comprobante,nro_comprobante,fecha,total,estado")
+        ventas = db.select_all("venta","id_venta,id_cliente,tipo_comprobante,nro_comprobante,fecha,total,estado,id_usuario")
         print("#########################################################################")
-        print("Nro\tCliente\t\tTipo Comprobante\tSerie Comprobante\tFecha\tTotal\tEstado")
+        print("Nro\tCliente\t\tTipo Comprobante\tNumero Comprobante\tFecha\t\tTotal\t\tEstado\tUsuario")
         for venta in ventas:
-            cliente = db.select("cliente","apellido|| ' ' ||nombre",f"WHERE id_cliente = {venta[1]}")
-            print(f"{venta[0]}\t{cliente}\t\t{venta[2]}\t{venta[3]}\t{venta[4]}\t{venta[5]}\t{venta[6]}")
+            cliente = db.select("cliente","apellido|| ' ' ||nombre",f"id_cliente = {venta[1]}")
+            print(f"{venta[0]}\t{cliente[0][0]}\t{venta[2]}\t\t{venta[3]}\t\t{venta[4]}\t{venta[5]}\t\t{venta[6]}\t{venta[7]}")
         print("#########################################################################")
         db.close()

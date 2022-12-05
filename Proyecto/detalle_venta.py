@@ -3,20 +3,20 @@ from Database import sql
 
 class DetalleVenta:
 
-    def __init__(self,idproducto = 0, cantidad = 0,subtotal = 0.0,id_detalleventa = 0, idventa = 0):
-        self.__idDetalleVenta = id_detalleventa
+    def __init__(self,idproducto = 0, cantidad = 0,subtotal = 0.0,id_detalleVenta = 0, idventa = 0):
+        self.__id_detalleVenta = id_detalleVenta
         self.__cantidad = cantidad
         self.__idproducto = idproducto
         self.__idventa = idventa
         self.__subtotal = subtotal
     
     @property
-    def IdDetalleVenta(self):
-        return self.__IdDetalleVenta
+    def Id_detalleVenta(self):
+        return self.__id_detalleVenta
     
-    @IdDetalleVenta.setter
-    def Id(self, IdDetalleVenta):
-        self.__IdDetalleVenta = IdDetalleVenta
+    @Id_detalleVenta.setter
+    def Id(self, id_detalleVenta):
+        self.__id_detalleVenta = id_detalleVenta
     
     @property
     def idventa(self):
@@ -56,30 +56,31 @@ class DetalleVenta:
     def get_detalleventa(self,id_venta):
         db = sql.DataBase("superpy.db")
         venta = db.select("venta","id_venta,id_cliente,tipo_comprobante,nro_comprobante,fecha,total,id_usuario",
-                    f"WHERE id_venta = {id_venta}")
-        cliente = db.select("cliente","apellido|| ' ' ||nombre",f"WHERE id_cliente = {venta[0][1]}")
-        usuario = db.select("usuario","apellido|| ' ' ||nombre",f"WHERE id_usuario = {venta[0][6]}")
-        detalles = db.select("detalle_venta","id_venta,id_producto,cantidad,descuento,subtotal",
-                    f"WHERE id_venta = {id_venta}")
+                    f"id_venta = {id_venta}")
+        cliente = db.select("cliente","apellido|| ' ' ||nombre",f"id_cliente = {venta[0][1]}")
+        usuario = db.select("usuario","apellido|| ' ' ||nombre",f"id_usuario = {venta[0][6]}")
+        detalles = db.select("detalle_venta","id_venta,id_producto,cantidad,precio",
+                             f"id_venta = {id_venta}")
         print('-------------------------------------------')
         print('             SUPERPY   ')
         print('-------------------------------------------')
         print('Tipo Comprobante : ',venta[0][2],'\tnumero_comprobante : ',venta[0][3])
         print('-------------------------------------------')
-        print('Cajero: ',usuario[0][6],'      Fecha: ',venta[0][4])
+        print('Cajero: ',usuario[0][0],'      Fecha: ',venta[0][4])
         print('-------------------------------------------')
         print('Cliente: ',cliente[0][0])
         print('-------------------------------------------')
         print('--------------DETALLES---------------------')
         print('-------------------------------------------')
-        print("Nro\tproducto\tcantidad\tdescuento\tsubtotal")
+        print("Nro\tproducto\tcantidad\tsubtotal")
         i = 0
         for detalle in detalles:
-            producto = db.select("productos","nombre",f"id_producto = {detalle[1]}")
-            print(f"{i}\t{producto[0][0]}\t{detalle[2]}\t{detalle[3]}\t{detalle[4]}")
+            producto = db.select("producto","nombre",f"id_producto = {detalle[1]}")
+            print(f"{i}\t{producto[0][0]}\t{detalle[1]}\t{detalle[2]}\t{detalle[3]}")
             i += 1 
         print('-------------------------------------------')
         print('Total a pagar: $', venta[0][5])
         print('-------------------------------------------')
-       
+        print("")
+        
         db.close()
