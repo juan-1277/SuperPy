@@ -1,7 +1,7 @@
 from Database import sql
 class Cliente:
 
-    def __init__(self,id_cliente = 0, nombre = "", apellido="", direccion="", telefono="", fecha_nacimiento="", dni="", email="", condicion_fiscal=""):
+    def __init__(self,id_cliente = 0, nombre = "", apellido="", direccion="", telefono="", fecha_nacimiento="", dni="", email="", condicion_fiscal="",estado=1):
         self.__idcliente = id_cliente
         self.__nombre = nombre
         self.__apellido = apellido
@@ -11,7 +11,7 @@ class Cliente:
         self.__dni = dni
         self.__email = email
         self.__condicion_fiscal = condicion_fiscal
-        self.__estado = True
+        self.__estado = estado
 
     @property
     def Idcliente(self):
@@ -149,9 +149,10 @@ class Cliente:
     def listarClientes(self):
         db = sql.DataBase("superpy.db")
         clientes = db.select_all("cliente","id_cliente,nombre,apellido,dni,direccion,telefono,fecha_nacimiento,email,condicion_fiscal,estado")
-        print("Nro\tnombre\tapellido\tdni\tdireccion\ttelefono\tfecha_nacimiento\temail\tcondicion_fiscal")
+        print("Nro\tnombre\tapellido\tdni\tdireccion\ttelefono\tfecha_nacimiento\temail\t\t\tcondicion_fiscal\testado")
         for cliente in clientes:
-            if self.__estado == 1:
-                print(f"{cliente[0]}\t{cliente[1]}\t{cliente[2]}\t{cliente[3]}\t{cliente[4]}\t\t{cliente[5]}\t{cliente[6]}\t{cliente[7]}\t{cliente[8]}")
+            if {cliente[9]} != 0:
+                print(f"{cliente[0]}\t{cliente[1]}\t{cliente[2]}\t{cliente[3]}\t{cliente[4]}\t\t{cliente[5]}\t{cliente[6]}\t{cliente[7]}\t{cliente[8]}\t{cliente[9]}")
         db.close()       
         
+

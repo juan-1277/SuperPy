@@ -64,7 +64,7 @@ while runing:
                print("5 - Crear Producto")
                print("6 - Modificar Producto")
                print("7 - Eliminar Producto") 
-               print("8 - Mostrar Productos") 
+               print("8 - Mostrar Productos")
                print("0 - Volver ")
                print("")
                sub_opcion = int(input("Ingrese una Opcion: "))
