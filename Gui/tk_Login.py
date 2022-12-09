@@ -3,6 +3,15 @@ from tkinter import *
 from Database import sql
 from functools import partial
 
+def consulta(email,password):
+        db = sql.DataBase("superpy.db")
+        usuario_valido = db.select("usuario", "email,password",f'email = {email}')
+
+        if email == usuario_valido[0][0]:
+            if password == usuario_valido[0][1]:
+                tkinter.messagebox.showinfo(title="Inicio", message="Inicio de sesión exitoso")
+        db.close() #siempre cerrar la conexión a la base de datos
+
 def login():
     ventana_inicio = tkinter.Tk()
     ventana_inicio.title("Ventana inicio sesion")
@@ -17,7 +26,7 @@ def login():
     contraseña_label = tkinter.Label(ventana_inicio, text = "Contraseña")
     contraseña_entry = tkinter.Entry(ventana_inicio)
     boton_login = tkinter.Button(ventana_inicio, text = "INGRESAR", command = partial(consulta,usuario_entry.get(), contraseña_entry.get()))
-
+ 
     #Colocaciòn de Widgets en pantalla
 
     login_label.grid(row = 0, column = 0, columnspan = 2)
@@ -27,17 +36,11 @@ def login():
     contraseña_entry.grid(row = 2, column = 1)
     boton_login.grid(row = 3, column = 0, columnspan = 2) 
 
+    
+
+    
+
     ventana_inicio.mainloop()
-
-    def consulta(email,password):
-        db = sql.DataBase("superpy.db")
-        usuario_valido = db.select("usuario", "email,password",f'email = {email}')
-
-        if email == usuario_valido[0][0]:
-            if password == usuario_valido[0][1]:
-                tkinter.messagebox.showinfo(title="Inicio", message="Inicio de sesión exitoso")
-        db.close() #siempre cerrar la conexión a la base de datos
-
 
 
 
