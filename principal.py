@@ -9,6 +9,7 @@ from os import system
 #from progress.bar import Bar
 import time,random
 
+"""
 login = True
 system("cls")
 while login:
@@ -34,7 +35,7 @@ for num in range(100):
     time.sleep(random.uniform(0, 0.1))
     bar.next()
 bar.finish()
-
+"""
 system("cls")
 runing = True
 while runing:
