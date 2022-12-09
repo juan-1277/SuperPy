@@ -1,5 +1,6 @@
 import tkinter 
 from tkinter import *
+from tk_Login import login
 
 ventana = tkinter.Tk()
 ventana.geometry("800x1000")
@@ -7,9 +8,7 @@ ventana.title("Ventana Principal")
 
 #Ventana nueva, para abirir el inicio de sesion. Esta ventana se abre al apretar en el boton INGRESAR
 def log_inicio():
-    ventana_inicio = Toplevel()
-    ventana_inicio.title("Ventana inicio sesion")
-    ventana_inicio.geometry("300x200")
+    login()
 
 def close(): #corresponde a la funcion para cerrar la ventana Tkinter, invocada en el boton "Exit"
     ventana.destroy()
@@ -26,12 +25,6 @@ boton_exit = tkinter.Button(ventana, text = "Exit", bg = "orange", command = clo
 boton_exit.pack()
 
 
-
-
-    
-#############################
-
-#Botones de la ventana inicio
 
 
 ventana.mainloop()
