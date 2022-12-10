@@ -9,8 +9,11 @@ ventana_carrito.title("Carro de compras")
 ventana_carrito.configure(bg = "green")
 producto = StringVar()
 
-#Definicion de funciones
-def agregar_productosycantidades(): #ESTA FUNCION PERMITE AGREGAR PRODUCTOS EN LA LISTA DE PRODUCTOS
+########DEFINICION DE FUNCIONES##########
+
+#LE FALTA CODEARLE QUE NO PERMITA AGREGAR SI ES QUE EL PRODUCTO NO ESTA EN LA BASE DE DATOS
+#ESTA FUNCION PERMITE AGREGAR PRODUCTOS EN LA LISTA DE PRODUCTOS
+def agregar_productosycantidades(): 
    lista_productos.insert(END, producto.get())
    lista_cantidades.insert(END, cantidad_entry.get())
 
@@ -22,7 +25,9 @@ def eliminar_productosycantidades():#ESTA FUNCION PERMITE ELIMINAR PRODUCTOS Y C
     lista_productos.delete(indice - 1)
     lista_cantidades.delete(indice - 1)
 
-#def buscar(producto): FALTA DEFINIR BIEN LA FUNCION DE BUSCAR, VER CON EL PROFE COMO CREAR LA BASE DE DATOS DEL PRODUCTO
+#FALTA DEFINIR BIEN LA FUNCION DE BUSCAR, VER CON EL PROFE COMO CREAR LA BASE DE DATOS DEL PRODUCTO.
+#LA FUNCION DEBERIA PERMITIR VER SI EL PRODUCTO QUE SE ESTA CARGANDO ESTA DISPONIBLE, Y EN CASO DE QUE ESTÉ, QUE DE EL AVISO.
+#def buscar(producto): 
         #db = sql.DataBase("superpy.db")
         #producto_valido = db.select("usuario", "email,password",f'email = {email}',f'password = {password}')
 
@@ -36,7 +41,9 @@ def eliminar_productosycantidades():#ESTA FUNCION PERMITE ELIMINAR PRODUCTOS Y C
 
 
 
-#Creaciòn de Widgets
+###########Creaciòn de Widgets
+
+
 titulo_label = tkinter.Label(ventana_carrito, text = "Carro de compras")
 total_label = tkinter.Label(ventana_carrito, text = "Total a pagar $")
 lista_label = tkinter.Label(ventana_carrito, text = "Lista de productos")
@@ -55,7 +62,9 @@ eliminar_entry = tkinter.Spinbox(ventana_carrito)
 eliminar_boton = tkinter.Button(ventana_carrito, text = "ELIMINAR", command = eliminar_productosycantidades, bg = "red")
 
 
-#Colocaciòn de Widgets en pantalla
+###########   Colocaciòn de Widgets en pantalla
+
+
 titulo_label.grid(row = 0, column = 3)
 total_label.grid(row = 1, column = 6)
 lista_label.grid(row = 2, column = 1)
