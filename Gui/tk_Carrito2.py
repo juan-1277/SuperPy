@@ -1,20 +1,14 @@
 import tkinter
 from tkinter import *
-
-
 ventana_carrito = tkinter.Tk()
 ventana_carrito.geometry("800x400")
 ventana_carrito.title("Carro de compras")
 ventana_carrito.configure(bg = "green")
 producto = StringVar()
-
-#Definicion de funciones
 def agregar_productos():
    lista_productos.insert(END, producto.get())
-lista_productos = list()
 
-def eliminar_productos(posicion):
-    lista_productos.delete(posicion)
+lista_productos = list()
 
 #Creaciòn de Widgets
 titulo_label = tkinter.Label(ventana_carrito, text = "Carro de compras")
@@ -25,9 +19,16 @@ buscar_boton = tkinter.Button(ventana_carrito, text = "BUSCAR")
 buscar_label = tkinter.Label(ventana_carrito , text = "Buscar un producto")
 txt_producto = tkinter.Entry(ventana_carrito, textvariable = producto)
 lista_productos = tkinter.Listbox(ventana_carrito)
-eliminar_label = tkinter.Label(ventana_carrito, text = "Pos. a Eliminar")
-eliminar_entry = tkinter.Entry(ventana_carrito)
-eliminar_boton = tkinter.Button(ventana_carrito, text = "ELIMINAR", command = eliminar_productos)
+# Marco para contener el listbox y la barra de desplazamiento.
+frame = tkinter.Frame()
+# Crear una barra de deslizamiento con orientación vertical.
+scrollbar = tkinter.Scrollbar(frame, orient=tkinter.VERTICAL)
+# Vincularla con la lista.
+lista_productos = tkinter.Listbox(frame,yscrollcommand=scrollbar.set)
+scrollbar.config(command=lista_productos.yview)
+# Ubicarla a la derecha.
+
+
 
 
 #Colocaciòn de Widgets en pantalla
@@ -39,9 +40,9 @@ txt_producto.grid(row = 4, column = 8)
 agregar_boton.grid(row = 4, column = 20)
 buscar_boton.grid(row = 5, column = 20)
 lista_productos.grid(row = 5, column = 1)
-eliminar_label.grid(row = 6, column = 10)
-eliminar_entry.grid(row = 6, column = 15)
-eliminar_boton.grid(row = 8, column = 10)
+scrollbar.grid(row = 7, column = 7)
+frame.grid(row = 7, column = 1)
+
 
 
 
