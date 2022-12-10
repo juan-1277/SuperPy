@@ -5,7 +5,7 @@ from functools import partial
 
 def consulta(email,password):
         db = sql.DataBase("superpy.db")
-        usuario_valido = db.select("usuario", "email,password",f'email = {email}')
+        usuario_valido = db.select("usuario", "email,password",f'email = {email}',f'password = {password}')
 
         if email == usuario_valido[0][0]:
             if password == usuario_valido[0][1]:
@@ -25,7 +25,7 @@ def login():
     usuario_entry = tkinter.Entry(ventana_inicio)
     contraseña_label = tkinter.Label(ventana_inicio, text = "Contraseña")
     contraseña_entry = tkinter.Entry(ventana_inicio)
-    boton_login = tkinter.Button(ventana_inicio, text = "INGRESAR", command = partial(consulta,usuario_entry.get(), contraseña_entry.get()))
+    boton_login = tkinter.Button(ventana_inicio, text = "INGRESAR", command = partial(consulta,(usuario_entry.get()), (contraseña_entry.get())))
  
     #Colocaciòn de Widgets en pantalla
 
