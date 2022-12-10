@@ -2,6 +2,7 @@ import tkinter
 from tkinter import *
 
 
+#DEFINICION DE LA VENTANA Y CARACTERISTICAS
 ventana_carrito = tkinter.Tk()
 ventana_carrito.geometry("800x400")
 ventana_carrito.title("Carro de compras")
@@ -9,33 +10,49 @@ ventana_carrito.configure(bg = "green")
 producto = StringVar()
 
 #Definicion de funciones
-def agregar_productos():
+def agregar_productosycantidades(): #ESTA FUNCION PERMITE AGREGAR PRODUCTOS EN LA LISTA DE PRODUCTOS
    lista_productos.insert(END, producto.get())
-#lista_productos = list()
+   lista_cantidades.insert(END, cantidad_entry.get())
 
-def agregar_cantidad():
-    lista_cantidades.insert(END, cantidad_entry.get())
+#def agregar_cantidad():#ESTA FUNCION PERMITE AGREGAR PRODUCTOS EN LA LISTA DE CANTIDADES
+    #lista_cantidades.insert(END, cantidad_entry.get())
 
-def eliminar_productos(item):
-    lista_productos.delete(item)
+def eliminar_productosycantidades():#ESTA FUNCION PERMITE ELIMINAR PRODUCTOS Y CANTIDADES AL MISMO TIEMPO
+    indice = int(eliminar_entry.get())
+    lista_productos.delete(indice - 1)
+    lista_cantidades.delete(indice - 1)
+
+#def buscar(producto): FALTA DEFINIR BIEN LA FUNCION DE BUSCAR, VER CON EL PROFE COMO CREAR LA BASE DE DATOS DEL PRODUCTO
+        #db = sql.DataBase("superpy.db")
+        #producto_valido = db.select("usuario", "email,password",f'email = {email}',f'password = {password}')
+
+       # if email == usuario_valido[0][0]:
+        #    if password == usuario_valido[0][1]:
+         #       tkinter.messagebox.showinfo(title="Inicio", message="Inicio de sesión exitoso")
+        #db.close() #siempre cerrar la conexión a la base de datos
+
+
+
+
+
 
 #Creaciòn de Widgets
 titulo_label = tkinter.Label(ventana_carrito, text = "Carro de compras")
 total_label = tkinter.Label(ventana_carrito, text = "Total a pagar $")
 lista_label = tkinter.Label(ventana_carrito, text = "Lista de productos")
 cantidades_label = tkinter.Label(ventana_carrito, text = "Cantidades")
-agregar_producto_boton = tkinter.Button(ventana_carrito, text = "AGREGAR", command = agregar_productos)
-agregar_cantidad_boton = tkinter.Button(ventana_carrito, text = "AGREGAR Q", command = agregar_cantidad)
-buscar_boton = tkinter.Button(ventana_carrito, text = "BUSCAR")
+agregar_producto_boton = tkinter.Button(ventana_carrito, text = "AGREGAR", command = agregar_productosycantidades, bg = "SkyBlue1")
+#agregar_cantidad_boton = tkinter.Button(ventana_carrito, text = "AGREGAR Q", command = agregar_cantidad)
+buscar_boton = tkinter.Button(ventana_carrito, text = "BUSCAR", bg = "gray64")
 ingresar_label = tkinter.Label(ventana_carrito , text = "Ingresar un producto")
 cantidad_label = tkinter.Label(ventana_carrito , text = "Ingresar cantidad")
 cantidad_entry = tkinter.Spinbox(ventana_carrito)
 txt_producto = tkinter.Entry(ventana_carrito, textvariable = producto)
 lista_productos = tkinter.Listbox(ventana_carrito)
 lista_cantidades = tkinter.Listbox(ventana_carrito)
-eliminar_label = tkinter.Label(ventana_carrito, text = "Pos. a Eliminar")
-eliminar_entry = tkinter.Spinbox(ventana_carrito)
-eliminar_boton = tkinter.Button(ventana_carrito, text = "ELIMINAR", command = eliminar_productos)
+eliminar_label = tkinter.Label(ventana_carrito, text = "Posición a eliminar")
+eliminar_entry = tkinter.Spinbox(ventana_carrito)   
+eliminar_boton = tkinter.Button(ventana_carrito, text = "ELIMINAR", command = eliminar_productosycantidades, bg = "red")
 
 
 #Colocaciòn de Widgets en pantalla
@@ -44,7 +61,7 @@ total_label.grid(row = 1, column = 6)
 lista_label.grid(row = 2, column = 1)
 cantidades_label.grid(row = 2, column = 2)
 agregar_producto_boton.grid(row = 4, column = 7)
-agregar_cantidad_boton.grid(row = 5, column = 6)
+#agregar_cantidad_boton.grid(row = 5, column = 6)
 buscar_boton.grid(row = 4, column = 6)
 ingresar_label.grid(row = 4, column = 3)
 cantidad_label.grid(row = 5, column = 3)
