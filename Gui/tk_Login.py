@@ -2,15 +2,34 @@ import tkinter
 from tkinter import *
 from Database import sql
 from functools import partial
+from tkinter import messagebox
 
 def consulta(email,password):
-        db = sql.DataBase("superpy.db")
-        usuario_valido = db.select("usuario", "email,password",f'email = {email}',f'password = {password}')
+    db = sql.DataBase("superpy.db")
+    #usuario_valido = db.select("usuario", "email,password", email, password)
+    #usuario_valido = db.select("usuario", "email,password",f'email = {email}')
+    #usuario_valido = db.select("usuario", "email,password",f'email = {email}',f'password = {password}')
+    usuario_valido = db.select("usuario", "password",f"email = '{email}'")
 
-        if email == usuario_valido[0][0]:
-            if password == usuario_valido[0][1]:
-                tkinter.messagebox.showinfo(title="Inicio", message="Inicio de sesión exitoso")
-        db.close() #siempre cerrar la conexión a la base de datos
+#SOLUCION PROPUESTA
+    if (usuario_valido)>0:
+        password = usuario_valido[0][0]
+        if password == password:
+            messagebox.showinfo("Inicio", "Inicio de sesión exitoso")
+            db.close() #siempre cerrar la conexión a la base de datos
+        else:
+            print("Contraseña incorrecta")
+    else:
+        print("Usuario incorrecto ó ")
+        print("No se encuentra Registrado el Usuario")       
+
+#SOLUCION VISTA CON EL PROFE, PENDIENTE DE CORRECCIÒN
+
+    #if (usuario_valido)>0:
+     #   if email == usuario_valido[0][0]:
+       #     if password == usuario_valido[0][1]:
+        #        messagebox.showinfo("Inicio", "Inicio de sesión exitoso")
+        #db.close() #siempre cerrar la conexión a la base de datos
 
 def login():
     ventana_inicio = tkinter.Tk()
