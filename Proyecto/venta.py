@@ -76,6 +76,9 @@ class Venta:
     def __str__(self):
         return self.__cliente + " - " + self.__fecha + " - " + str(self.__total)
     
+    get_id_usuario = Usuario()
+    get_id_usuario = get_id_usuario.id_usuario()
+    
     def crearVenta(self):
         db = sql.DataBase("superpy.db")
         persona = Cliente()
@@ -100,46 +103,58 @@ class Venta:
             print("")
             while runnig:
                 id_producto = int(input("Ingrese el Nro del producto: "))
+                cantidad = int(input("Ingrese la cantidad del producto: "))
+                producto = db.select("producto","precio_venta",f"id_producto = {id_producto}")
+                producto = db.select("producto","stock",f"id_producto = {id_producto} ")
+                stock = producto[0][0]
+                if stock == 0:
+                    cantidad == 0
+                else:
+                    stock = stock - cantidad
+                db.update("producto","stock",stock,f"id_producto = {id_producto} ")
+                subtotal = producto[0][0] * cantidad
+                detalles.append(DetalleVenta(id_producto, cantidad,subtotal))
+                self.__total += subtotal 
                 producto = db.select("producto","stock",f"id_producto = {id_producto} ")
                 stock = producto[0][0]
                 if stock == 0:
                     print("Producto sin stock")
+                print("---------------------------------------------------")
+                opcion = int(input("Desea Ingresar otros Productos?\n 1 - SI\n 0 - NO\n "))
+                if opcion == 0:
                     runnig = False
-                    #print("Producto sin stock")
-                else:
-                    cantidad = int(input("Ingrese la cantidad del producto: "))
-                    producto = db.select("producto","precio_venta",f"id_producto = {id_producto}")
-                    subtotal = producto[0][0] * cantidad
-                    detalles.append(DetalleVenta(id_producto, cantidad,subtotal))
-                    self.__total += subtotal 
-                    opcion = int(input("Desea Ingresar otros Productos?\n 1 - SI\n 0 - NO\n "))
-                    if opcion == 0:
-                        runnig = False
-                    print("####################################################")
-                    self.__fecha = datetime.today()
-                    self.__id_usuario = Usuario(id)
-                    db.insert("venta","id_cliente,tipo_comprobante,nro_comprobante,fecha,total,id_usuario",
-                            f"'{self.__cliente}','{self.__tipoComprobante}','{self.__nro_comprobante}','{self.__fecha}','{self.__total}','{self.__id_usuario}'")
-                    self.__idventa = db.get_last_id()
-                    for detalle in detalles:
-                        db.insert("detalle_venta","id_venta,id_producto,cantidad,precio",
-                            f"'{self.__idventa}','{detalle.idproducto}','{detalle.Cantidad}','{detalle.Subtotal}'")
+                print("####################################################")
+                self.__fecha = datetime.today().strftime('%Y-%m-%d')
+                get_id_usuario = Usuario()
+                get_id_usuario = get_id_usuario.id_usuario()
+                self.__id_usuario = get_id_usuario
+                db.insert("venta","id_cliente,tipo_comprobante,nro_comprobante,fecha,total,id_usuario",
+                        f"'{self.__cliente}','{self.__tipoComprobante}','{self.__nro_comprobante}','{self.__fecha}','{self.__total}','{self.__id_usuario}'")
+                self.__idventa = db.get_last_id()
+                for detalle in detalles:
+                    db.insert("detalle_venta","id_venta,id_producto,cantidad,precio",
+                        f"'{self.__idventa}','{detalle.idproducto}','{detalle.Cantidad}','{detalle.Subtotal}'")
         db.close()
         
     def anularVenta(self,id_venta):
         db = sql.DataBase("superpy.db")
         db.update("venta","estado",0,f"id_venta = {id_venta}")
         db.close()
+        
+    def borrarVenta(self,id_venta):
+        db = sql.DataBase("superpy.db")
+        db.delete("venta",f"id_venta = {id_venta}")
+        db.close()
     
     def all_venta(self):
         db = sql.DataBase("superpy.db")
         ventas = db.select_all("venta","id_venta,id_cliente,tipo_comprobante,nro_comprobante,fecha,total,estado,id_usuario")
-        print("#########################################################################")
+        print("###############################################################")
         print("Nro\tCliente\t\tTipo Comprobante\tNumero Comprobante\tFecha\t\tTotal\t\tEstado\tUsuario")
         for venta in ventas:
             cliente = db.select("cliente","apellido|| ' ' ||nombre",f"id_cliente = {venta[1]}")
-            print(f"{venta[0]}\t{cliente[0][0]}\t{venta[2]}\t\t{venta[3]}\t\t{venta[4]}\t{venta[5]}\t\t{venta[6]}\t{venta[7]}")
-        print("#########################################################################")
+            print(f"{venta[0]}\t{cliente[0][0]}\t{venta[2]}\t\t{venta[3]}\t\t\t{venta[4]}\t{venta[5]}\t{venta[6]}\t{venta[7]}")
+        print("################################################################")
         db.close()
         
     """ def stock(self,id_venta):

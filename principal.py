@@ -30,10 +30,10 @@ while login:
 print("Has iniciado sesion")
 
 bar = Bar('Cargando Sistema', max=10)
-for num in range(100):
+for num in range(10):
     time.sleep(random.uniform(0, 0.1))
     bar.next()
-bar.finish() """
+bar.finish()  """
 
 system("cls") 
 runing = True
@@ -196,7 +196,8 @@ while runing:
             print("4 - Mostrar Clientes ")
             print("5 - Crear Venta ")
             print("6 - Anular Venta ")
-            print("7 - Mostrar Ventas ")
+            print("7 - Borrar Venta")
+            print("8 - Mostrar Ventas ")
             print("0 - Volver ")
             print("")
             sub_opcion = int(input("Ingrese una Opcion: "))
@@ -239,6 +240,16 @@ while runing:
             elif sub_opcion == 7:
                 venta = Venta()
                 venta.all_venta()
+                print("0 - Volver ")
+                print("")
+                id_venta = int(input("Ingrese un numero de Venta: "))
+                if id_venta != 0:
+                    venta.borrarVenta(id_venta)       
+            elif sub_opcion == 8:
+                venta = Venta()
+                venta.all_venta()
+                print("0 - Volver ")
+                print("")
                 detalle_venta_id = int(input("Desea ver los detalle de la venta ingrese el numero : "))
                 if detalle_venta_id != 0:
                     dt = DetalleVenta()

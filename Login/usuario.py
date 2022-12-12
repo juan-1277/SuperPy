@@ -110,8 +110,13 @@ class Usuario:
         else:
             print("Usuario incorrecto ó ")
             print("No se encuentra Registrado el Usuario")
-            return False
-        
+            return False        
+            
+    def id_usuario(self):
+        db = sql.DataBase("superpy.db")
+        id = db.select("usuario","id_usuario",f"email = '{self.__email}'")
+        return id
+                    
     def logout(self):
         self.__email = ""
         self.__password = ""
