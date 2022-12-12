@@ -13,8 +13,7 @@ def consulta(email,password):
 
 #SOLUCION PROPUESTA
     if (usuario_valido)>0:
-        password = usuario_valido[0][0]
-        if password == password:
+        if password == usuario_valido[0][0]:
             messagebox.showinfo("Inicio", "Inicio de sesión exitoso")
             db.close() #siempre cerrar la conexión a la base de datos
         else:
