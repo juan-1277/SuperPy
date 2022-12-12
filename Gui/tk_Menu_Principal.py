@@ -8,6 +8,7 @@ ventana.configure(bg = "green")
 def close(): #corresponde a la funcion para cerrar la ventana Tkinter, invocada en el boton "Exit"
     ventana.destroy()
 
+
 boton1 = tkinter.Button(ventana, text = "Productos", bg = "orange")
 boton1.pack()
 

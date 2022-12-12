@@ -9,4 +9,6 @@ db.insert("usuario","nombre,apellido,dni,email,password,idrol","'Llatser','Juan'
 db.insert("usuario","nombre,apellido,dni,email,password,idrol","'Camaño','Maxi','99999','maxicamano@gmail.com','3333',1")
 #para agregar un usuario nuevo simplemente agrego un db.insert("nombre de tabla", "las columnas de las tablas a insertar", datos de cada columna)
 
+
+
 db.close()
