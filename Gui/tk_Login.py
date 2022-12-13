@@ -1,8 +1,9 @@
 import tkinter
 from tkinter import *
 from Database import sql
-from functools import partial
+#from functools import partial
 from tkinter import messagebox
+from Gui.tk_Ingreso import ingresar
 
 def consulta(email,password):
     print(email)
@@ -17,6 +18,7 @@ def consulta(email,password):
     if len(usuario_valido)>0:
         if password == usuario_valido[0][0]:
             messagebox.showinfo("Inicio", "Inicio de sesión exitoso")
+            ingresar()
             db.close() #siempre cerrar la conexión a la base de datos
         else:
             print("Contraseña incorrecta")
