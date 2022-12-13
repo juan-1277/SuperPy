@@ -1,7 +1,7 @@
 import tkinter
 from tkinter import *
 
-def carrito ():
+def carrito():
     #DEFINICION DE LA VENTANA Y CARACTERISTICAS
     ventana_carrito = tkinter.Tk()
     ventana_carrito.geometry("800x400")
@@ -16,6 +16,7 @@ def carrito ():
     def agregar_productosycantidades(): 
         lista_productos.insert(END, producto.get())
         lista_cantidades.insert(END, cantidad_entry.get())
+
 
     #def agregar_cantidad():#ESTA FUNCION PERMITE AGREGAR PRODUCTOS EN LA LISTA DE CANTIDADES
         #lista_cantidades.insert(END, cantidad_entry.get())
@@ -35,8 +36,6 @@ def carrito ():
             #    if password == usuario_valido[0][1]:
             #       tkinter.messagebox.showinfo(title="Inicio", message="Inicio de sesión exitoso")
             #db.close() #siempre cerrar la conexión a la base de datos
-
-
 
 
     ###########Creaciòn de Widgets
@@ -60,7 +59,7 @@ def carrito ():
     eliminar_boton = tkinter.Button(ventana_carrito, text = "ELIMINAR", command = eliminar_productosycantidades, bg = "red")
 
 
-    ###########   Colocaciòn de Widgets en pantalla
+        ###########   Colocaciòn de Widgets en pantalla
 
 
     titulo_label.grid(row = 0, column = 3)

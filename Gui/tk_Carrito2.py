@@ -1,14 +1,19 @@
 import tkinter
 from tkinter import *
+
+#DEFINICION DE LA VENTANA
 ventana_carrito = tkinter.Tk()
 ventana_carrito.geometry("800x400")
 ventana_carrito.title("Carro de compras")
 ventana_carrito.configure(bg = "green")
-producto = StringVar()
-def agregar_productos():
-   lista_productos.insert(END, producto.get())
 
-lista_productos = list()
+#DEFINICION DE VARIABLES
+producto = StringVar()
+
+#DEFINICION DE FUNCIONES
+#def agregar_productos():
+  # lista_productos.insert(END, producto.get())
+   #lista_productos = list()
 
 #Creaciòn de Widgets
 titulo_label = tkinter.Label(ventana_carrito, text = "Carro de compras")
@@ -27,8 +32,6 @@ scrollbar = tkinter.Scrollbar(frame, orient=tkinter.VERTICAL)
 lista_productos = tkinter.Listbox(frame,yscrollcommand=scrollbar.set)
 scrollbar.config(command=lista_productos.yview)
 # Ubicarla a la derecha.
-
-
 
 
 #Colocaciòn de Widgets en pantalla
