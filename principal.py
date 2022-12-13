@@ -255,8 +255,8 @@ print("")
 print("Sesion Terminada")
 print("")
 
-bar = Bar('Cerrando Sistema', max=100)
+''' bar = Bar('Cerrando Sistema', max=100)
 for num in range(100):
     time.sleep(random.uniform(0, 0.1))
     bar.next()
-bar.finish()
+bar.finish() '''
