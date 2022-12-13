@@ -5,6 +5,7 @@ from Database import sql
 from tkinter import messagebox
 from Gui.tk_Ingreso import ingresar
 
+#Definición de la funcion consulta, que se ejecuta al apretar el boton INGRESAR.
 def consulta(email,password):
     print(email)
     print(password)
@@ -34,20 +35,29 @@ def consulta(email,password):
         #        messagebox.showinfo("Inicio", "Inicio de sesión exitoso")
         #db.close() #siempre cerrar la conexión a la base de datos
 
+
+
+#DEFINICION D ELA FUNCION DE APERTURA DEL LOGIN, SE ACTIVA AL EJECUTAR tk_TEST.py
 def login():
     ventana_inicio = tkinter.Tk()
     ventana_inicio.title("Ventana inicio sesion")
     ventana_inicio.geometry("300x200")
     ventana_inicio.configure(bg = "#333333")
-    #Creaciòn de Widgets
+
+
+    #DEFINICION DE VARIABLES
     usuario = StringVar()
     password = StringVar()
+
+    #CREACION DE WIDGETS
     login_label = tkinter.Label(ventana_inicio, text = "LOGIN SUPERMARK")
     usuario_label = tkinter.Label(ventana_inicio, text = "Usuario")
     usuario_entry = tkinter.Entry(ventana_inicio, textvariable=usuario)
     contraseña_label = tkinter.Label(ventana_inicio, text = "Contraseña")
     contraseña_entry = tkinter.Entry(ventana_inicio, textvariable=password)
     boton_login = tkinter.Button(ventana_inicio, text = "INGRESAR", command = lambda : consulta(usuario.get(),password.get()))
+
+
     #Colocaciòn de Widgets en pantalla
     login_label.grid(row = 0, column = 0, columnspan = 2)
     usuario_label.grid(row = 1, column = 0)
@@ -55,6 +65,9 @@ def login():
     contraseña_label.grid(row = 2, column = 0)
     contraseña_entry.grid(row = 2, column = 1)
     boton_login.grid(row = 3, column = 0, columnspan = 2) 
+
+
+
     ventana_inicio.mainloop()
 
 
