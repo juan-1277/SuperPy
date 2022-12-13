@@ -39,8 +39,6 @@ def carrito ():
 
 
 
-
-
     ###########Creaciòn de Widgets
 
 
