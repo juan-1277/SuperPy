@@ -22,10 +22,12 @@ def consulta(email,password):
             ingresar()
             db.close() #siempre cerrar la conexión a la base de datos
         else:
-            print("Contraseña incorrecta")
+            messagebox.showinfo("Incorrecto", "Contraseña incorrecta")
+            #print("Contraseña incorrecta")
     else:
-        print("Usuario incorrecto ó ")
-        print("No se encuentra Registrado el Usuario")       
+        messagebox.showinfo("UserIncorrecto", "No se encuentra Registrado el Usuario")
+        #print("Usuario incorrecto ó ")
+        #print("No se encuentra Registrado el Usuario")       
 
 #SOLUCION VISTA CON EL PROFE, PENDIENTE DE CORRECCIÒN
 
