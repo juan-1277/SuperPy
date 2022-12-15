@@ -21,6 +21,7 @@ def ingresar():
 
     etiqueta = tkinter.Label(ventana, text = "MAS QUE LA COMIDA, ES LA EXPERIENCIA")
     etiqueta.pack(fill = tkinter.X)
+    
     #Botones de ingreso al sistema o salida
     boton1 = tkinter.Button(ventana, text = "INGRESAR", bg = "orange", command = carrito)
     boton1.pack()

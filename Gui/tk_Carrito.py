@@ -9,15 +9,15 @@ def carrito():
     ventana_carrito.geometry("800x400")
     ventana_carrito.title("Carro de compras")
     ventana_carrito.configure(bg = "green")
-    
     producto = StringVar()
+
 
     ########DEFINICION DE FUNCIONES##########
 
     #LE FALTA CODEARLE QUE NO PERMITA AGREGAR SI ES QUE EL PRODUCTO NO ESTA EN LA BASE DE DATOS
     #ESTA FUNCION PERMITE AGREGAR PRODUCTOS EN LA LISTA DE PRODUCTOS
     def agregar_productosycantidades(): 
-        lista_productos.insert(END, producto.get())
+        lista_productos.insert(END, txt_producto.get())
         lista_cantidades.insert(END, cantidad_entry.get())
 
 
@@ -30,20 +30,21 @@ def carrito():
         lista_cantidades.delete(indice - 1)
 
     def buscar():
-        db = sql.DataBase("superpy.db")
-        producto_valido = db.select("producto", "nombre",f"nombre = '{producto}'")
-
-        if len(producto_valido)>0:
-            if producto.get() == producto_valido[0][0]:
+        db = sql.DataBase("superpy.db")        
+        producto_valido = db.select("producto","nombre", f"nombre = '{producto}'")
+        
+                
+        if len(producto_valido) == 0:       
+            if producto == producto_valido[0][0]:
                 messagebox.showinfo("Encontrado", "El producto existe")
                 db.close() 
             else:
                 messagebox.showinfo("No encontrado", "El producto NO existe")
         else:
-            messagebox.showinfo("Corregir entrada", "Ingrese un producto valido")
+            messagebox.showinfo("Producto no valido", "Ingrese producto válido")
 
             
-
+    
 
     #FALTA DEFINIR BIEN LA FUNCION DE BUSCAR, VER CON EL PROFE COMO CREAR LA BASE DE DATOS DEL PRODUCTO.
     #LA FUNCION DEBERIA PERMITIR VER SI EL PRODUCTO QUE SE ESTA CARGANDO ESTA DISPONIBLE, Y EN CASO DE QUE ESTÉ, QUE DE EL AVISO.
@@ -58,6 +59,7 @@ def carrito():
     ###########Creaciòn de Widgets
 
 
+
     titulo_label = tkinter.Label(ventana_carrito, text = "Carro de compras")
     total_label = tkinter.Label(ventana_carrito, text = "Total a pagar $")
     lista_label = tkinter.Label(ventana_carrito, text = "Lista de productos")
@@ -68,7 +70,8 @@ def carrito():
     ingresar_label = tkinter.Label(ventana_carrito , text = "Ingresar un producto")
     cantidad_label = tkinter.Label(ventana_carrito , text = "Ingresar cantidad")
     cantidad_entry = tkinter.Spinbox(ventana_carrito)
-    txt_producto = tkinter.Entry(ventana_carrito, textvariable = producto)
+    #txt_producto = tkinter.Entry(ventana_carrito, textvariable = producto)
+    txt_producto = tkinter.Entry(ventana_carrito, textvariable=producto)
     lista_productos = tkinter.Listbox(ventana_carrito)
     lista_cantidades = tkinter.Listbox(ventana_carrito)
     eliminar_label = tkinter.Label(ventana_carrito, text = "Posición a eliminar")
