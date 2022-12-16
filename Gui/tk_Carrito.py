@@ -9,7 +9,7 @@ def carrito():
     ventana_carrito.geometry("800x400")
     ventana_carrito.title("Carro de compras")
     ventana_carrito.configure(bg = "green")
-    producto = StringVar()
+    
 
 
     ########DEFINICION DE FUNCIONES##########
@@ -29,19 +29,19 @@ def carrito():
         lista_productos.delete(indice - 1)
         lista_cantidades.delete(indice - 1)
 
-    def buscar():
-        db = sql.DataBase("superpy.db")        
-        producto_valido = db.select("producto","nombre", f"nombre = '{producto}'")
-        
+    def buscar(producto):
+        db = sql.DataBase("superpy.db") 
+        print(producto)       
+        producto_valido = db.select("producto","nombre,precio_venta", f"nombre = '{producto}'")
                 
-        if len(producto_valido) == 0:       
+        if len(producto_valido) > 0:       
             if producto == producto_valido[0][0]:
                 messagebox.showinfo("Encontrado", "El producto existe")
                 db.close() 
             else:
                 messagebox.showinfo("No encontrado", "El producto NO existe")
         else:
-            messagebox.showinfo("Producto no valido", "Ingrese producto válido")
+            messagebox.showinfo("Producto no valido", "Ingrese un producto válido")
 
             
     
@@ -59,19 +59,20 @@ def carrito():
     ###########Creaciòn de Widgets
 
 
-
+    producto = StringVar()
     titulo_label = tkinter.Label(ventana_carrito, text = "Carro de compras")
     total_label = tkinter.Label(ventana_carrito, text = "Total a pagar $")
     lista_label = tkinter.Label(ventana_carrito, text = "Lista de productos")
     cantidades_label = tkinter.Label(ventana_carrito, text = "Cantidades")
     agregar_producto_boton = tkinter.Button(ventana_carrito, text = "AGREGAR", command = agregar_productosycantidades, bg = "SkyBlue1")
     #agregar_cantidad_boton = tkinter.Button(ventana_carrito, text = "AGREGAR Q", command = agregar_cantidad)
-    buscar_boton = tkinter.Button(ventana_carrito, text = "BUSCAR", bg = "gray64", command = buscar)
+    
     ingresar_label = tkinter.Label(ventana_carrito , text = "Ingresar un producto")
     cantidad_label = tkinter.Label(ventana_carrito , text = "Ingresar cantidad")
     cantidad_entry = tkinter.Spinbox(ventana_carrito)
     #txt_producto = tkinter.Entry(ventana_carrito, textvariable = producto)
     txt_producto = tkinter.Entry(ventana_carrito, textvariable=producto)
+    buscar_boton = tkinter.Button(ventana_carrito, text = "BUSCAR", bg = "gray64", command = lambda: buscar(producto.get()))
     lista_productos = tkinter.Listbox(ventana_carrito)
     lista_cantidades = tkinter.Listbox(ventana_carrito)
     eliminar_label = tkinter.Label(ventana_carrito, text = "Posición a eliminar")
