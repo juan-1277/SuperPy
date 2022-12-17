@@ -4,7 +4,7 @@ from Gui.tk_Carrito import carrito
 
 def ingresar():
     ventana = tkinter.Tk()
-    ventana.geometry("800x800")
+    ventana.geometry("800x400")
     ventana.title("Ventana Principal")
 
 #Ventana nueva, para abirir el inicio de sesion. Esta ventana se abre al apretar en el boton INGRESAR
