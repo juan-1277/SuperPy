@@ -2,28 +2,32 @@ import tkinter
 from tkinter import *
 from Database import sql
 from tkinter import messagebox
+from Gui.tk_Productos import catalogo
 
-def carrito():
-    #DEFINICION DE LA VENTANA Y CARACTERISTICAS
+resultado = 0
+
+def carrito():    
     ventana_carrito = tkinter.Tk()
-    ventana_carrito.geometry("800x400")
+    ventana_carrito.geometry("800x800")
     ventana_carrito.title("Carro de compras")
-    ventana_carrito.configure(bg = "green")
-    
+    ventana_carrito.configure(bg = "blue4")
+    ##resultado = 0
 
+    #DEFINICION DE FUNCIONES
 
-    ########DEFINICION DE FUNCIONES##########
-
-    #LE FALTA CODEARLE QUE NO PERMITA AGREGAR SI ES QUE EL PRODUCTO NO ESTA EN LA BASE DE DATOS
-    #ESTA FUNCION PERMITE AGREGAR PRODUCTOS EN LA LISTA DE PRODUCTOS
+    ##resultado = StringVar()
+    ##precio_venta = int()
     def agregar_productosycantidades(producto): 
         if buscar(producto) == True:
             lista_productos.insert(END, txt_producto.get())
             lista_cantidades.insert(END, cantidad_entry.get())
 
+            db = sql.DataBase("superpy.db")
+            precio_venta = db.select("producto","precio_venta", f"nombre = '{txt_producto.get()}'")
 
-    #def agregar_cantidad():#ESTA FUNCION PERMITE AGREGAR PRODUCTOS EN LA LISTA DE CANTIDADES
-        #lista_cantidades.insert(END, cantidad_entry.get())
+            resultado = resultado + precio_venta[0][0]*cantidad_entry.get()
+            total_monto_label.insert(resultado)
+            
 
     def eliminar_productosycantidades():#ESTA FUNCION PERMITE ELIMINAR PRODUCTOS Y CANTIDADES AL MISMO TIEMPO
         indice = int(eliminar_entry.get())
@@ -37,9 +41,10 @@ def carrito():
                 
         if len(producto_valido) > 0:       
             if producto == producto_valido[0][0]:
-                messagebox.showinfo("Encontrado", "El producto existe")
+                messagebox.showinfo("Encontrado", "El producto existe")                                
                 db.close() 
                 return True
+                
             else:
                 messagebox.showinfo("No encontrado", "El producto NO existe")
                 return False
@@ -48,10 +53,6 @@ def carrito():
             return False
 
             
-    
-
-    #FALTA DEFINIR BIEN LA FUNCION DE BUSCAR, VER CON EL PROFE COMO CREAR LA BASE DE DATOS DEL PRODUCTO.
-    #LA FUNCION DEBERIA PERMITIR VER SI EL PRODUCTO QUE SE ESTA CARGANDO ESTA DISPONIBLE, Y EN CASO DE QUE ESTÉ, QUE DE EL AVISO.
     #def buscar(producto): 
             #db = sql.DataBase("superpy.db")
             #producto_valido = db.select("usuario", "email,password",f'email = {email}',f'password = {password}')
@@ -60,17 +61,19 @@ def carrito():
             #    if password == usuario_valido[0][1]:
             #       tkinter.messagebox.showinfo(title="Inicio", message="Inicio de sesión exitoso")
             #db.close() #siempre cerrar la conexión a la base de datos
-    ###########Creaciòn de Widgets
 
+    ##CREACION DE WIDGETS
 
+    
     #producto = StringVar()
     titulo_label = tkinter.Label(ventana_carrito, text = "Carro de compras")
     total_label = tkinter.Label(ventana_carrito, text = "Total a pagar $")
+    total_monto_label = tkinter.Entry(ventana_carrito)
     lista_label = tkinter.Label(ventana_carrito, text = "Lista de productos")
     cantidades_label = tkinter.Label(ventana_carrito, text = "Cantidades")
+    #precio_venta_label = tkinter.Label(ventana_carrito, text = "Precio")
     agregar_producto_boton = tkinter.Button(ventana_carrito, text = "AGREGAR", command = lambda: agregar_productosycantidades(txt_producto.get()), bg = "SkyBlue1")
     #agregar_cantidad_boton = tkinter.Button(ventana_carrito, text = "AGREGAR Q", command = agregar_cantidad)
-    
     ingresar_label = tkinter.Label(ventana_carrito , text = "Ingresar un producto")
     cantidad_label = tkinter.Label(ventana_carrito , text = "Ingresar cantidad")
     cantidad_entry = tkinter.Spinbox(ventana_carrito)
@@ -79,18 +82,20 @@ def carrito():
     buscar_boton = tkinter.Button(ventana_carrito, text = "BUSCAR", bg = "gray64", command = lambda: buscar(txt_producto.get()))
     lista_productos = tkinter.Listbox(ventana_carrito)
     lista_cantidades = tkinter.Listbox(ventana_carrito)
+    #lista_precios = tkinter.Listbox(ventana_carrito)
     eliminar_label = tkinter.Label(ventana_carrito, text = "Posición a eliminar")
     eliminar_entry = tkinter.Spinbox(ventana_carrito)   
     eliminar_boton = tkinter.Button(ventana_carrito, text = "ELIMINAR", command = eliminar_productosycantidades, bg = "red")
+    catalogo_boton = tkinter.Button(ventana_carrito, text = "CATALOGO", command = catalogo, bg = "SkyBlue1")
 
-
-    ###########   Colocaciòn de Widgets en pantalla
-
+    #COLOCACION DE WIDGETS EN PANTALLA
 
     titulo_label.grid(row = 0, column = 3)
     total_label.grid(row = 1, column = 6)
+    total_monto_label.grid(row = 1, column= 7)
     lista_label.grid(row = 2, column = 1)
     cantidades_label.grid(row = 2, column = 2)
+    #precio_venta_label.grid()
     agregar_producto_boton.grid(row = 4, column = 7)
     #agregar_cantidad_boton.grid(row = 5, column = 6)
     buscar_boton.grid(row = 4, column = 6)
@@ -100,10 +105,11 @@ def carrito():
     txt_producto.grid(row = 4, column = 5)
     lista_productos.grid(row = 5, column = 1)
     lista_cantidades.grid(row = 5, column = 2)
+    #lista_precios.grid(row = 9, column = 1)
     eliminar_label.grid(row = 7, column = 1)
     eliminar_entry.grid(row = 7, column = 2)
     eliminar_boton.grid(row = 7, column = 3)
-
+    catalogo_boton.grid(row = 8, column = 7)
 
 
 
