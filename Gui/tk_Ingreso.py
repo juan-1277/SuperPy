@@ -1,6 +1,7 @@
 import tkinter 
 from tkinter import *
-from Gui.tk_Carrito import carrito
+#from Gui.tk_Carrito import carrito
+from Gui.tk_Login import login
 
 def ingresar():
     ventana = tkinter.Tk()
@@ -23,7 +24,8 @@ def ingresar():
     etiqueta.pack(fill = tkinter.X)
 
     #Botones de ingreso al sistema o salida
-    boton1 = tkinter.Button(ventana, text = "INGRESAR", bg = "orange", command = carrito)
+    #boton1 = tkinter.Button(ventana, text = "INGRESAR", bg = "orange", command = carrito)
+    boton1 = tkinter.Button(ventana, text = "INGRESAR", bg = "orange", command = login)
     boton1.pack()
 
 

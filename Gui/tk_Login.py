@@ -3,7 +3,7 @@ from tkinter import *
 from Database import sql
 #from functools import partial
 from tkinter import messagebox
-from Gui.tk_Ingreso import ingresar
+from Gui.tk_Carrito import carrito
 
 #Definición de la funcion consulta, que se ejecuta al apretar el boton INGRESAR.
 def consulta(email,password):
@@ -19,7 +19,8 @@ def consulta(email,password):
     if len(usuario_valido)>0:
         if password == usuario_valido[0][0]:
             messagebox.showinfo("Inicio", "Inicio de sesión exitoso")
-            ingresar()
+            #ingresar()
+            carrito()
             db.close() #siempre cerrar la conexión a la base de datos
         else:
             messagebox.showinfo("Incorrecto", "Contraseña incorrecta")
