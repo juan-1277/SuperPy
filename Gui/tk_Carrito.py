@@ -4,17 +4,16 @@ from Database import sql
 from tkinter import messagebox
 from Gui.tk_Productos import catalogo
 
-resultado = 0
+
 
 def carrito():    
     ventana_carrito = tkinter.Tk()
     ventana_carrito.geometry("800x800")
     ventana_carrito.title("Carro de compras")
     ventana_carrito.configure(bg = "blue4")
-    ##resultado = 0
-
+    #resultado = 0 
     #DEFINICION DE FUNCIONES
-
+    global resultado_total
     ##resultado = StringVar()
     ##precio_venta = int()
     def agregar_productosycantidades(producto): 
@@ -24,9 +23,12 @@ def carrito():
 
             db = sql.DataBase("superpy.db")
             precio_venta = db.select("producto","precio_venta", f"nombre = '{txt_producto.get()}'")
-
-            resultado = resultado + precio_venta[0][0]*cantidad_entry.get()
-            total_monto_label.insert(resultado)
+            resultado = 0
+            resultado = resultado + float(precio_venta[0][0])*float(cantidad_entry.get())
+            total_monto_label.insert(0,resultado)
+            resultado_total = resultado_total + resultado
+            print(resultado_total)
+            
             
 
     def eliminar_productosycantidades():#ESTA FUNCION PERMITE ELIMINAR PRODUCTOS Y CANTIDADES AL MISMO TIEMPO
