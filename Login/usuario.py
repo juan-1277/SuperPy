@@ -1,6 +1,7 @@
 from Database import sql
-class Usuario:
 
+class Usuario:
+    
     def __init__(self, id=0, nombre="", apellido="", dni="", email="", password="", id_rol=0, estado=1):
         self.__id = id
         self.__nombre = nombre
@@ -95,7 +96,7 @@ class Usuario:
                   f"'{self.__nombre}','{self.__apellido}','{self.__dni}','{self.__email}','{self.__password}',{self.__id_rol}")
         db.close()
         
-
+    
     def login(self,email,password):
         db = sql.DataBase("superpy.db")
         usuario = db.select("usuario","password",f"email = '{email}'")
@@ -110,12 +111,16 @@ class Usuario:
         else:
             print("Usuario incorrecto ó ")
             print("No se encuentra Registrado el Usuario")
-            return False        
+            return False 
             
-    def id_usuario(self):
-        db = sql.DataBase("superpy.db")
-        id = db.select("usuario","id_usuario",f"email = '{self.__email}'")
-        return id
+    def usuario_id(self):
+        usuario = Usuario()
+        if usuario.login == True:
+            db = sql.DataBase("superpy.db")
+            usuario = db.select("usuario","id_usuario",f"email = '{self.__email}'")
+            usuario = usuario[0][0]
+            db.close()
+        return usuario
                     
     def logout(self):
         self.__email = ""

@@ -8,6 +8,9 @@ from Proyecto.venta import Venta
 from os import system
 from progress.bar import Bar
 import time,random
+from Database import sql
+
+#global usuario_id
 
 """ login = True
 system("cls")
@@ -21,7 +24,11 @@ while login:
         password = input("Contraseña : ")
         usuario = Usuario()
         if (usuario.login(email,password)):
-             login = False
+            #db = DataBase("superpy.db")
+            #usuario = db.select("usuario","id_usuario",f"email = {email}")
+            #usuario_id = usuario[0][0]
+            #db.close()
+            login = False
         print("")
         print("-------------------------------------")
         print("")
@@ -36,7 +43,7 @@ for num in range(10):
 bar.finish()  """
 
 system("cls") 
-runing = True
+runing = True 
 while runing:
    print("-------------------------------------")
    print("-------------- MENU -----------------")
