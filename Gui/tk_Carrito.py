@@ -6,6 +6,7 @@ from Gui.tk_Productos import catalogo
 
 
 
+
 def carrito():    
     ventana_carrito = tkinter.Tk()
     ventana_carrito.geometry("800x800")
@@ -13,22 +14,29 @@ def carrito():
     ventana_carrito.configure(bg = "blue4")
     #resultado = 0 
     #DEFINICION DE FUNCIONES
-    global resultado_total
+    #global resultado_total
     ##resultado = StringVar()
     ##precio_venta = int()
-    def agregar_productosycantidades(producto): 
+    
+    def agregar_productosycantidades(producto):
+        global resultado_total
+        #resultado_total = 0
         if buscar(producto) == True:
             lista_productos.insert(END, txt_producto.get())
             lista_cantidades.insert(END, cantidad_entry.get())
-
+            
             db = sql.DataBase("superpy.db")
             precio_venta = db.select("producto","precio_venta", f"nombre = '{txt_producto.get()}'")
             resultado = 0
-            resultado = resultado + float(precio_venta[0][0])*float(cantidad_entry.get())
-            total_monto_label.insert(0,resultado)
-            resultado_total = resultado_total + resultado
-            print(resultado_total)
+            resultado_total = 0
             
+            resultado = resultado + float(precio_venta[0][0])*float(cantidad_entry.get())
+            lista_precios.insert(END, resultado)
+            #total_monto_label.insert(0,resultado)
+            resultado_total = resultado_total + resultado
+            total_monto_label.insert(0,resultado_total)            
+            #print(resultado_total)                  
+        
             
 
     def eliminar_productosycantidades():#ESTA FUNCION PERMITE ELIMINAR PRODUCTOS Y CANTIDADES AL MISMO TIEMPO
@@ -65,7 +73,8 @@ def carrito():
             #db.close() #siempre cerrar la conexión a la base de datos
 
     ##CREACION DE WIDGETS
-
+    
+    
     
     #producto = StringVar()
     titulo_label = tkinter.Label(ventana_carrito, text = "Carro de compras")
@@ -84,7 +93,7 @@ def carrito():
     buscar_boton = tkinter.Button(ventana_carrito, text = "BUSCAR", bg = "gray64", command = lambda: buscar(txt_producto.get()))
     lista_productos = tkinter.Listbox(ventana_carrito)
     lista_cantidades = tkinter.Listbox(ventana_carrito)
-    #lista_precios = tkinter.Listbox(ventana_carrito)
+    lista_precios = tkinter.Listbox(ventana_carrito) #AGREGADO
     eliminar_label = tkinter.Label(ventana_carrito, text = "Posición a eliminar")
     eliminar_entry = tkinter.Spinbox(ventana_carrito)   
     eliminar_boton = tkinter.Button(ventana_carrito, text = "ELIMINAR", command = eliminar_productosycantidades, bg = "red")
@@ -107,7 +116,7 @@ def carrito():
     txt_producto.grid(row = 4, column = 5)
     lista_productos.grid(row = 5, column = 1)
     lista_cantidades.grid(row = 5, column = 2)
-    #lista_precios.grid(row = 9, column = 1)
+    lista_precios.grid(row = 9, column = 1) #AGREGADO
     eliminar_label.grid(row = 7, column = 1)
     eliminar_entry.grid(row = 7, column = 2)
     eliminar_boton.grid(row = 7, column = 3)
