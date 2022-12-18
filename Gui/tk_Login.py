@@ -26,7 +26,7 @@ def consulta(email,password):
             messagebox.showinfo("Incorrecto", "Contraseña incorrecta")
             #print("Contraseña incorrecta")
     else:
-        messagebox.showinfo("UserIncorrecto", "No se encuentra Registrado el Usuario")
+        messagebox.showinfo("User Incorrecto", "No se encuentra Registrado el Usuario")
         #print("Usuario incorrecto ó ")
         #print("No se encuentra Registrado el Usuario")       
 
@@ -42,7 +42,7 @@ def consulta(email,password):
 
 #DEFINICION D ELA FUNCION DE APERTURA DEL LOGIN, SE ACTIVA AL EJECUTAR tk_TEST.py
 def login():
-    ventana_inicio = tkinter.Tk()
+    ventana_inicio = tkinter.Toplevel()
     ventana_inicio.title("Ventana inicio sesion")
     ventana_inicio.geometry("300x200")
     ventana_inicio.configure(bg = "#333333")
