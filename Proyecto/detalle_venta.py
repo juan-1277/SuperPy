@@ -73,10 +73,10 @@ class DetalleVenta:
         print('--------------DETALLES---------------------')
         print('-------------------------------------------')
         print("Nro\tproducto\tcantidad\tsubtotal")
-        i = 0
+        i = 1
         for detalle in detalles:
             producto = db.select("producto","nombre",f"id_producto = {detalle[1]}")
-            print(f"{i}\t{producto[0][0]}\t{detalle[1]}\t{detalle[2]}\t{detalle[3]}")
+            print(f"{i}\t{producto[0][0]}\t{detalle[2]}\t\t{detalle[3]}")
             i += 1 
         print('-------------------------------------------')
         print('Total a pagar: $', venta[0][5])
