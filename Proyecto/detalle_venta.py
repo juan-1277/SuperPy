@@ -51,7 +51,7 @@ class DetalleVenta:
         self.__subtotal = subtotal
     
     def __str__(self):
-        return self.__cantidad + " - " + self.__producto
+        return self.__cantidad + " - " + self.__idproducto
 
     def get_detalleventa(self,id_venta):
         db = sql.DataBase("superpy.db")

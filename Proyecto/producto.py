@@ -72,16 +72,16 @@ class Producto:
 
     def crearProducto(self):
         db = sql.DataBase('superpy.db')
-        self.__codigo = input("Ingrese el codigo del Producto: ")
-        self.__nombre = input("Ingrese el nombre del producto: ")
-        self.__precio = float(input("Ingrese el precio del producto: "))
-        self.__stock = int(input("Ingrese el stock del producto: "))
-        self.__descripcion = input("Ingrese la descripcion : ")
         categorias = db.select("categoria","id_categoria,nombre","estado = 1")
         print("Nro\tNombre")
         for categoria in categorias:
             print(f"{categoria[0]}\t{categoria[1]}")
         self.__idcategoria = input("Ingrese la categoria del producto: ")
+        self.__codigo = input("Ingrese el codigo del Producto: ")
+        self.__nombre = input("Ingrese el nombre del producto: ")
+        self.__precio = float(input("Ingrese el precio del producto: "))
+        self.__stock = int(input("Ingrese el stock del producto: "))
+        self.__descripcion = input("Ingrese la descripcion : ")
         db.insert("producto","id_categoria,codigo,nombre,precio_venta,stock,descripcion",
                   f"{self.__idcategoria},'{self.__codigo}','{self.__nombre}','{self.__precio}','{self.__stock}','{self.__descripcion}'")
         db.close()        
@@ -90,7 +90,7 @@ class Producto:
         db = sql.DataBase("superpy.db")
         print("Si no desea Modificar el Dato Solo Presione Enter")
         print("Hasta llegar al Dato que quiere modificar")
-        producto = db.select("producto","id_categoria,codigo,nombre,precio_venta,stock,descripcion",f"id_producto = {id_producto} ")
+        producto = db.select("producto","id_categoria,codigo,nombre,precio_venta,stock,descripcion,estado",f"id_producto = {id_producto} ")
         self.__codigo = input(f"Modifique el Codigo : {producto[0][1]} ")  or producto[0][1]
         self.__nombre = input(f"Modifique el Nombre :  {producto[0][2]} ") or producto[0][2]
         self.__precio = input(f"Modifique el Precio : {producto[0][3]} ")  or producto[0][3]
@@ -116,13 +116,18 @@ class Producto:
         db.update("producto","estado","0",f"id_producto = {id_producto}")
         db.close()
         
+    def activarProducto(self,id_producto):
+        db = sql.DataBase("superpy.db")
+        db.update("producto","estado","1",f"id_producto = {id_producto}")
+        db.close()
+        
     def listarProducto(self):
         db = sql.DataBase("superpy.db")
-        productos = db.select_all("producto","id_producto,id_categoria,codigo,nombre,precio_venta,stock,descripcion")
-        print("Nro\tCategoria\tcodigo\t\tnombre\t\tprecio\tstock\tdescripcion")
+        productos = db.select_all("producto","id_producto,id_categoria,codigo,nombre,precio_venta,stock,descripcion,estado")
+        print("Nro\tCategoria\tcodigo\t\tnombre\t\tprecio\tstock\tdescripcion\testado")
         for producto in productos:
             categoria = db.select("categoria","nombre",f"id_categoria = {producto[1]}")
-            print(f"{producto[0]}\t{categoria[0][0]}\t\t{producto[2]}\t\t{producto[3]}\t{producto[4]}\t{producto[5]}\t{producto[6]}")
+            print(f"{producto[0]}\t{categoria[0][0]}\t\t{producto[2]}\t\t{producto[3]}\t{producto[4]}\t{producto[5]}\t{producto[6]}\t{producto[7]}")
         db.close()
     
     

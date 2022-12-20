@@ -72,6 +72,7 @@ while runing:
                print("6 - Modificar Producto")
                print("7 - Eliminar Producto") 
                print("8 - Mostrar Productos")
+               print("9 - Activar Productos")
                print("0 - Volver ")
                print("")
                sub_opcion = int(input("Ingrese una Opcion: "))
@@ -119,7 +120,16 @@ while runing:
                elif sub_opcion == 8:
                   producto = Producto()
                   producto.listarProducto()
-                  volver = int(input("0 - Volver "))
+                  print("0 - Volver ")
+                  print("")
+               elif sub_opcion == 9:
+                  producto = Producto()
+                  producto.listarProducto()
+                  print("0 - Volver ")
+                  print("")
+                  id_producto = int(input("Ingrese un numero de producto: "))
+                  if id_producto != 0:
+                     producto.activarProducto(id_producto) 
                else:
                   sub_opcion = 0
       elif opcion == 2:

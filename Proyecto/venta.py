@@ -121,7 +121,7 @@ class Venta:
                 self.__idventa = db.get_last_id()
                 for detalle in detalles:
                     db.insert("detalle_venta","id_venta,id_producto,cantidad,precio",
-                        f"'{self.__idventa}','{detalle.idproducto}','{detalle.Cantidad}','{detalle.Subtotal}'")
+                        f"'{self.__idventa}','{detalle.producto}','{detalle.Cantidad}','{detalle.Subtotal}'")
         db.close()
         
     def anularVenta(self,id_venta):
@@ -151,6 +151,7 @@ class Venta:
         print("Nro\tCliente\t\tTipo Comprobante\tNumero Comprobante\tFecha\t\tTotal\t\tEstado\tUsuario")
         for venta in ventas:
             cliente = db.select("cliente","apellido|| ' ' ||nombre",f"id_cliente = {venta[1]}")
+            ultventa=db.select("venta",)
             print(f"{venta[0]}\t{cliente[0][0]}\t{venta[2]}\t\t{venta[3]}\t\t\t{venta[4]}\t{venta[5]}\t{venta[6]}\t{venta[7]}")
         print("################################################################")
         db.close()

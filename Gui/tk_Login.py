@@ -3,7 +3,7 @@ from tkinter import *
 from Database import sql
 #from functools import partial
 from tkinter import messagebox
-from Gui.tk_Ingreso import ingresar
+from GUI.tk_Ingreso import ingresar
 
 #Definición de la funcion consulta, que se ejecuta al apretar el boton INGRESAR.
 def consulta(email,password):

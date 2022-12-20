@@ -130,12 +130,13 @@ class Usuario:
         db = sql.DataBase("superpy.db")
         print("Si no desea Modificar el Dato Solo Presione Enter")
         print("Hasta llegar al Dato que quiere modificar")
-        usuario = db.select("usuario","id_rol,nombre,apellido,dni,email,password",f"id_usuario = {id_usuario} ")
+        usuario = db.select("usuario","id_rol,nombre,apellido,dni,email,password,estado",f"id_usuario = {id_usuario} ")
         self.__nombre = input(f"Modifique el Nombre :  {usuario[0][1]} ") or usuario[0][1]
         self.__apellido = input(f"Modifique el Apellido : {usuario[0][2]} ") or usuario[0][2]
         self.__dni = input(f"Modifique el DNI : {usuario[0][3]} ") or usuario[0][3]
         self.__email = input(f"Modifique el email : {usuario[0][4]} ") or usuario[0][4]
         self.__password = input(f"Modifique el password : {usuario[0][5]} ") or usuario[0][5]
+        self.__estado = input(f"Modifique el estado : {usuario[0][6]} ") or usuario[0][6]
         roles = db.select("rol","id_rol,nombre","estado = 1")
         print("Nro   Role")
         for rol in roles:
@@ -149,6 +150,7 @@ class Usuario:
         db.update("usuario","email",f"'{self.__email}'",f"id_usuario = {id_usuario}")
         db.update("usuario","password",f"'{self.__password}'",f"id_usuario = {id_usuario}")
         db.update("usuario","id_rol",f"'{self.__id_rol}'",f"id_usuario = {id_usuario}")
+        db.update("usuario","estado",f"'{self.__estado}'",f"id_usuario = {id_usuario}")
         db.close()
         
     def eliminarUsuario(self,id_usuario):

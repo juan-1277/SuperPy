@@ -118,7 +118,7 @@ class Cliente:
         
     def modificarCliente(self,id_cliente):
         db = sql.DataBase('superpy.db')
-        cliente = db.select("cliente","nombre,apellido,dni,direccion,telefono,fecha_nacimiento,email,condicion_fiscal",
+        cliente = db.select("cliente","nombre,apellido,dni,direccion,telefono,fecha_nacimiento,email,condicion_fiscal,estado",
                   f"id_cliente = {id_cliente}")
         print("Si no desea Modificar el Dato Solo Presione Enter")
         print("Hasta llegar al Dato que quiere modificar")
@@ -130,6 +130,7 @@ class Cliente:
         self.Fecha_nacimiento = input(f"Modifica la fecha de nacimiento {cliente[0][5]} :") or cliente[0][5]
         self.__email = input(f"Modifica email {cliente[0][6]}: ") or cliente[0][6]
         self.__condicion_fiscal = input(f"Modifica condicion fiscal {cliente[0][7]} :") or cliente[0][7]
+        self.__estado = input(f"Modifica el estado {cliente[0][8]} :") or cliente[0][8]
         db.update("cliente","nombre",f"'{self.Nombre}'",f"id_cliente = {id_cliente}")
         db.update("cliente","apellido",f"'{self.Apellido}'",f"id_cliente = {id_cliente}")
         db.update("cliente","dni",f"'{self.Dni}'",f"id_cliente = {id_cliente}")
@@ -138,6 +139,7 @@ class Cliente:
         db.update("cliente","fecha_nacimiento",f"'{self.Fecha_nacimiento}'",f"id_cliente = {id_cliente}")
         db.update("cliente","email",f"'{self.__email}'",f"id_cliente = {id_cliente}")
         db.update("cliente","condicion_fiscal",f"'{self.__condicion_fiscal }'",f"id_cliente = {id_cliente}")
+        db.update("cliente","estado",f"'{self.__estado }'",f"id_cliente = {id_cliente}")
         db.close()
     
     def eliminarCliente(self,id_cliente):

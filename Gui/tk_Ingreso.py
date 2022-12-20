@@ -1,6 +1,6 @@
 import tkinter 
 from tkinter import *
-from Gui.tk_Carrito import carrito
+from GUI.tk_Carrito import carrito
 
 def ingresar():
     ventana = tkinter.Tk()
