@@ -25,13 +25,14 @@ def carrito():
             lista_productos.insert(END, txt_producto.get())
             lista_cantidades.insert(END, cantidad_entry.get())
             
+            
             db = sql.DataBase("superpy.db")
             precio_venta = db.select("producto","precio_venta", f"nombre = '{txt_producto.get()}'")
             resultado = 0
             resultado_total = 0
             
             resultado = resultado + float(precio_venta[0][0])*float(cantidad_entry.get())
-            lista_precios.insert(END, resultado)
+            lista_parciales.insert(END, resultado)
             #total_monto_label.insert(0,resultado)
             resultado_total = resultado_total + resultado
             total_monto_label.insert(0,resultado_total)            
@@ -43,6 +44,7 @@ def carrito():
         indice = int(eliminar_entry.get())
         lista_productos.delete(indice - 1)
         lista_cantidades.delete(indice - 1)
+        lista_parciales.delete(indice - 1)
 
     def buscar(producto):
         db = sql.DataBase("superpy.db") 
@@ -99,7 +101,7 @@ def carrito():
     
     lista_productos = tkinter.Listbox(ventana_carrito)
     lista_cantidades = tkinter.Listbox(ventana_carrito)
-    lista_precios = tkinter.Listbox(ventana_carrito) #AGREGADO
+    lista_parciales = tkinter.Listbox(ventana_carrito) #AGREGADO
     
     eliminar_label = tkinter.Label(ventana_carrito, text = "Posición a eliminar")
     eliminar_entry = tkinter.Spinbox(ventana_carrito)   
@@ -128,7 +130,7 @@ def carrito():
     
     lista_productos.grid(row = 5, column = 1) #LISTADO DE PRODUCTOS
     lista_cantidades.grid(row = 5, column = 2) #LISTADO DE CANTIDADES
-    lista_precios.grid(row = 5, column = 3) #LISTADO DE PRECIOS
+    lista_parciales.grid(row = 5, column = 3) #LISTADO DE PRECIOS
 
     eliminar_label.grid(row = 10, column = 1) #TEXTO "INGRESE POSICION A ELIMINAR"
     eliminar_entry.grid(row = 10, column = 2) #CAJA PARA INGRESAR EL INDICE A ELIMINAR
