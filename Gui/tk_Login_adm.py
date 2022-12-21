@@ -45,6 +45,9 @@ def login_adm():
     ventana_inicio.geometry("300x200")
     ventana_inicio.configure(bg = "#333333")
 
+    def close(): #corresponde a la funcion para cerrar la ventana Tkinter, invocada en el boton "Exit"
+        ventana_inicio.destroy()
+
 
     #DEFINICION DE VARIABLES
     usuario = StringVar()
@@ -57,7 +60,7 @@ def login_adm():
     contraseña_label = tkinter.Label(ventana_inicio, text = "Contraseña")
     contraseña_entry = tkinter.Entry(ventana_inicio, textvariable=password)
     boton_login = tkinter.Button(ventana_inicio, text = "INGRESAR", command = lambda : consulta_adm(usuario.get(),password.get()))
-
+    boton_exit = tkinter.Button(ventana_inicio, text = "EXIT", command = close)
 
     #Colocaciòn de Widgets en pantalla
     login_label.grid(row = 0, column = 0, columnspan = 2)
@@ -66,7 +69,7 @@ def login_adm():
     contraseña_label.grid(row = 2, column = 0)
     contraseña_entry.grid(row = 2, column = 1)
     boton_login.grid(row = 3, column = 0, columnspan = 2) 
-
+    boton_exit.grid(row = 5, column = 5)
 
 
     ventana_inicio.mainloop()

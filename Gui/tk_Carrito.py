@@ -18,6 +18,7 @@ def carrito():
     ##resultado = StringVar()
     ##precio_venta = int()
     
+        
     def agregar_productosycantidades(producto):
         global resultado_total
         #resultado_total = 0
@@ -31,12 +32,41 @@ def carrito():
             resultado = 0
             resultado_total = 0
             
-            resultado = resultado + float(precio_venta[0][0])*float(cantidad_entry.get())
+            resultado = float(resultado) + float(precio_venta[0][0])*float(cantidad_entry.get())
+           
             lista_parciales.insert(END, resultado)
+            
+            suma = 0
+            for i in lista_parciales:
+                suma = lista_parciales(i)         
+                total_monto_label.insert(END, suma)
+
             #total_monto_label.insert(0,resultado)
-            resultado_total = resultado_total + resultado
-            total_monto_label.insert(0,resultado_total)            
-            #print(resultado_total)                  
+            #resultado_total = resultado_total + resultado
+            #total_monto_label.insert(0,resultado_total)            
+            #print(resultado_total)                   
+    
+   
+    
+    #def agregar_productosycantidades(producto):
+     #   global resultado_total
+      #  #resultado_total = 0
+       # if buscar(producto) == True:
+        #    lista_productos.insert(END, txt_producto.get())
+         #   lista_cantidades.insert(END, cantidad_entry.get())
+            
+            
+          #  db = sql.DataBase("superpy.db")
+           # precio_venta = db.select("producto","precio_venta", f"nombre = '{txt_producto.get()}'")
+            #resultado = 0
+          #  resultado_total = 0
+           # 
+     #       resultado = resultado + float(precio_venta[0][0])*float(cantidad_entry.get())
+      #      lista_parciales.insert(END, resultado)
+       #     
+        #    resultado_total = resultado_total + resultado
+         #   total_monto_label.insert(0,resultado_total)            
+                           
         
             
 
@@ -85,7 +115,7 @@ def carrito():
 
     lista_label = tkinter.Label(ventana_carrito, text = "Lista de productos")
     cantidades_label = tkinter.Label(ventana_carrito, text = "Cantidades")
-    lista_parciales = tkinter.Label(ventana_carrito, text = "Monto Parcial")
+    label_parciales = tkinter.Label(ventana_carrito, text = "Monto Parcial")
 
     #precio_venta_label = tkinter.Label(ventana_carrito, text = "Precio")
     agregar_producto_boton = tkinter.Button(ventana_carrito, text = "AGREGAR", command = lambda: agregar_productosycantidades(txt_producto.get()), bg = "SkyBlue1")
@@ -117,7 +147,7 @@ def carrito():
 
     lista_label.grid(row = 2, column = 1) #TEXTO "LISTA DE PRODUCTOS"
     cantidades_label.grid(row = 2, column = 2) #TEXTO "CANTIDADES"
-    lista_parciales.grid(row = 2, column = 3) #TEXTO "montos parciales"
+    label_parciales.grid(row = 2, column = 3) #TEXTO "montos parciales"
     
     agregar_producto_boton.grid(row = 4, column = 8) #BOTON PARA AGREGAR PRODUCTO    
     buscar_boton.grid(row = 4, column = 7) #BOTON PARA BUSCAR

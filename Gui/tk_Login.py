@@ -39,13 +39,15 @@ def consulta(email,password):
         #db.close() #siempre cerrar la conexión a la base de datos
 
 
-
 #DEFINICION D ELA FUNCION DE APERTURA DEL LOGIN, SE ACTIVA AL EJECUTAR tk_TEST.py
 def login():
     ventana_inicio = tkinter.Toplevel()
     ventana_inicio.title("Ventana inicio sesion")
     ventana_inicio.geometry("300x200")
     ventana_inicio.configure(bg = "#333333")
+
+    def close(): #corresponde a la funcion para cerrar la ventana Tkinter, invocada en el boton "Exit"
+        ventana_inicio.destroy()
 
 
     #DEFINICION DE VARIABLES
@@ -59,7 +61,7 @@ def login():
     contraseña_label = tkinter.Label(ventana_inicio, text = "Contraseña")
     contraseña_entry = tkinter.Entry(ventana_inicio, textvariable=password)
     boton_login = tkinter.Button(ventana_inicio, text = "INGRESAR", command = lambda : consulta(usuario.get(),password.get()))
-
+    boton_exit = tkinter.Button(ventana_inicio, text = "EXIT", command = close)
 
     #Colocaciòn de Widgets en pantalla
     login_label.grid(row = 0, column = 0, columnspan = 2)
@@ -68,6 +70,7 @@ def login():
     contraseña_label.grid(row = 2, column = 0)
     contraseña_entry.grid(row = 2, column = 1)
     boton_login.grid(row = 3, column = 0, columnspan = 2) 
+    boton_exit.grid(row = 5, column = 5)
 
 
 
