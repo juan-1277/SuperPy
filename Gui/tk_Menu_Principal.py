@@ -1,5 +1,12 @@
 import tkinter
 from tkinter import *
+from Proyecto.producto import Producto
+
+def creacion_producto():
+    producto = Producto()
+    producto.crearProducto()   
+
+
 
 def menu():
     ventana = tkinter.Tk()
@@ -13,7 +20,7 @@ def menu():
 
     
 
-    boton1 = tkinter.Button(ventana, text = "Productos", bg = "orange")
+    boton1 = tkinter.Button(ventana, text = "Productos", bg = "orange", command = creacion_producto)
     boton1.pack()
 
     boton2 = tkinter.Button(ventana, text = "Usuarios", bg = "orange")
