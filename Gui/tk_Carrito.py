@@ -9,7 +9,7 @@ from Gui.tk_Productos import catalogo
 
 def carrito():    
     ventana_carrito = tkinter.Tk()
-    ventana_carrito.geometry("15000x8000")
+    ventana_carrito.geometry("1080x720")
     ventana_carrito.title("Carro de compras")
     ventana_carrito.configure(bg = "blue4")
     #resultado = 0 
@@ -38,10 +38,10 @@ def carrito():
             lista_parciales.insert(END, resultado)
             
             resultado_total = resultado_total + resultado
-            total_monto_label.insert(0,resultado_total)            
+            total = float(total_monto_label.get()) + float(precio_venta[0][0])*float(cantidad_entry.get())
+            total_monto_label.delete(0,END)
+            total_monto_label.insert(0,total)            
                            
-        
-            
 
     def eliminar_productosycantidades():#ESTA FUNCION PERMITE ELIMINAR PRODUCTOS Y CANTIDADES AL MISMO TIEMPO
         indice = int(eliminar_entry.get())
@@ -85,6 +85,7 @@ def carrito():
     titulo_label = tkinter.Label(ventana_carrito, text = "Carro de compras")
     total_label = tkinter.Label(ventana_carrito, text = "Total a pagar $")
     total_monto_label = tkinter.Entry(ventana_carrito)
+    total_monto_label.insert(0,"0.0")
 
     lista_label = tkinter.Label(ventana_carrito, text = "Lista de productos")
     cantidades_label = tkinter.Label(ventana_carrito, text = "Cantidades")
