@@ -19,6 +19,8 @@ def carrito():
     ##precio_venta = int()
     
         
+        
+    
     def agregar_productosycantidades(producto):
         global resultado_total
         #resultado_total = 0
@@ -32,40 +34,11 @@ def carrito():
             resultado = 0
             resultado_total = 0
             
-            resultado = float(resultado) + float(precio_venta[0][0])*float(cantidad_entry.get())
-           
+            resultado = resultado + float(precio_venta[0][0])*float(cantidad_entry.get())
             lista_parciales.insert(END, resultado)
             
-            suma = 0
-            for i in lista_parciales:
-                suma = lista_parciales(i)         
-                total_monto_label.insert(END, suma)
-
-            #total_monto_label.insert(0,resultado)
-            #resultado_total = resultado_total + resultado
-            #total_monto_label.insert(0,resultado_total)            
-            #print(resultado_total)                   
-    
-   
-    
-    #def agregar_productosycantidades(producto):
-     #   global resultado_total
-      #  #resultado_total = 0
-       # if buscar(producto) == True:
-        #    lista_productos.insert(END, txt_producto.get())
-         #   lista_cantidades.insert(END, cantidad_entry.get())
-            
-            
-          #  db = sql.DataBase("superpy.db")
-           # precio_venta = db.select("producto","precio_venta", f"nombre = '{txt_producto.get()}'")
-            #resultado = 0
-          #  resultado_total = 0
-           # 
-     #       resultado = resultado + float(precio_venta[0][0])*float(cantidad_entry.get())
-      #      lista_parciales.insert(END, resultado)
-       #     
-        #    resultado_total = resultado_total + resultado
-         #   total_monto_label.insert(0,resultado_total)            
+            resultado_total = resultado_total + resultado
+            total_monto_label.insert(0,resultado_total)            
                            
         
             
