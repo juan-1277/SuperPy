@@ -9,7 +9,7 @@ def catalogo():
     ventana_catalogo.title("Catalogo de Productos")
     ventana_catalogo.configure(bg = "blue4")
     
-    catalogo_productos = []
+    #catalogo_productos = []
 
     db = sql.DataBase("superpy.db")
     # HAY QUE RECORRER LA LISTA, SEGURAMENTE CON i Y j. Como hago para saber hasta donde ponerles los limites?

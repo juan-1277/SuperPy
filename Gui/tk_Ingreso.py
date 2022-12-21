@@ -2,6 +2,7 @@ import tkinter
 from tkinter import *
 #from Gui.tk_Carrito import carrito
 from Gui.tk_Login import login
+from Gui.tk_Menu_Principal import menu
 
 def ingresar():
     ventana = tkinter.Tk()
@@ -25,15 +26,15 @@ def ingresar():
 
     #Botones de ingreso al sistema o salida
     #boton1 = tkinter.Button(ventana, text = "INGRESAR", bg = "orange", command = carrito)
-    boton1 = tkinter.Button(ventana, text = "INGRESAR", bg = "orange", command = login)
+    boton1 = tkinter.Button(ventana, text = "Ingresar - Cliente", bg = "orange", command = login)
     boton1.pack()
 
 
+    boton2 = tkinter.Button(ventana, text = "Ingresar - Administrador", bg = "orange", command = menu)
+    boton2.pack()
 
     boton_exit = tkinter.Button(ventana, text = "EXIT", bg = "orange", command = close)
     boton_exit.pack()
-
-
 
 
     ventana.mainloop()

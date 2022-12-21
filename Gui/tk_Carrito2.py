@@ -2,7 +2,7 @@ import tkinter
 from tkinter import *
 
 #DEFINICION DE LA VENTANA
-ventana_carrito = tkinter.Tk()
+ventana_carrito = tkinter.Toplevel()
 ventana_carrito.geometry("800x400")
 ventana_carrito.title("Carro de compras")
 ventana_carrito.configure(bg = "green")
@@ -10,10 +10,11 @@ ventana_carrito.configure(bg = "green")
 #DEFINICION DE VARIABLES
 producto = StringVar()
 
+
 #DEFINICION DE FUNCIONES
-#def agregar_productos():
-  # lista_productos.insert(END, producto.get())
-   #lista_productos = list()
+def agregar_productos():
+   lista_productos.insert(END, producto.get())
+   lista_productos = list()
 
 #Creaciòn de Widgets
 titulo_label = tkinter.Label(ventana_carrito, text = "Carro de compras")
