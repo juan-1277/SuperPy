@@ -3,6 +3,7 @@ from tkinter import *
 from Database import sql
 from tkinter import messagebox
 from Gui.tk_Productos import catalogo
+from Gui.tk_Terminar import terminar #ELIMINAR
 
 
 
@@ -17,12 +18,13 @@ def carrito():
     #global resultado_total
     ##resultado = StringVar()
     ##precio_venta = int()
-    
+    global total_monto_label #ELIMINAR
         
         
     
     def agregar_productosycantidades(producto):
         global resultado_total
+        
         #resultado_total = 0
         if buscar(producto) == True:
             lista_productos.insert(END, txt_producto.get())
@@ -41,7 +43,21 @@ def carrito():
             total = float(total_monto_label.get()) + float(precio_venta[0][0])*float(cantidad_entry.get())
             total_monto_label.delete(0,END)
             total_monto_label.insert(0,total)            
-                           
+           
+      
+    
+
+    def itemseleccionado(): #ELIMINAR
+        for item in catalogo_lista_producto():
+            LB = tkinter.Label(ventana_carrito, text = catalogo_lista_producto.get(item)).pack()
+
+
+
+
+
+
+
+
 
     def eliminar_productosycantidades():#ESTA FUNCION PERMITE ELIMINAR PRODUCTOS Y CANTIDADES AL MISMO TIEMPO
         indice = int(eliminar_entry.get())
@@ -91,9 +107,8 @@ def carrito():
     cantidades_label = tkinter.Label(ventana_carrito, text = "Cantidades")
     label_parciales = tkinter.Label(ventana_carrito, text = "Monto Parcial")
 
-    #precio_venta_label = tkinter.Label(ventana_carrito, text = "Precio")
     agregar_producto_boton = tkinter.Button(ventana_carrito, text = "AGREGAR", command = lambda: agregar_productosycantidades(txt_producto.get()), bg = "SkyBlue1")
-    
+    #agregar_producto_boton = tkinter.Button(ventana_carrito, text = "AGREGAR", command = itemseleccionado)
     
     #agregar_cantidad_boton = tkinter.Button(ventana_carrito, text = "AGREGAR Q", command = agregar_cantidad)
     ingresar_label = tkinter.Label(ventana_carrito , text = "Ingresar un producto")
@@ -112,6 +127,8 @@ def carrito():
     eliminar_boton = tkinter.Button(ventana_carrito, text = "ELIMINAR", command = eliminar_productosycantidades, bg = "red")
     
     catalogo_boton = tkinter.Button(ventana_carrito, text = "CATALOGO", command = catalogo, bg = "SkyBlue1")
+
+    terminar_boton = tkinter.Button(ventana_carrito, text = "TERMINAR", command = terminar)
 
     #COLOCACION DE WIDGETS EN PANTALLA
 
@@ -141,6 +158,39 @@ def carrito():
     eliminar_boton.grid(row = 10, column = 3) #BOTON ELIMINAR
     catalogo_boton.grid(row = 9, column = 7) #BOTON DE CATALOGO
 
+    terminar_boton.grid(row = 11, column = 5)
+
+
+    #####
+    db = sql.DataBase("superpy.db")
+    # HAY QUE RECORRER LA LISTA, SEGURAMENTE CON i Y j. Como hago para saber hasta donde ponerles los limites?
+    #a cada parametro?
+    producto_valido = db.select_all("producto","nombre,precio_venta")
+
+
+    catalogo_productos = tkinter.Label(ventana_carrito, text = "Catalogo de productos")
+    precios_productos = tkinter.Label(ventana_carrito, text = "Precios unitarios")
+
+    catalogo_lista_producto = tkinter.Listbox(ventana_carrito)# LISTA DE PRODUCTOS EN CATALOGO
+    catalogo_lista_precio = tkinter.Listbox(ventana_carrito)#LISTA DE PRECIOS EN CATALOGO
+
+    for producto in producto_valido:
+        catalogo_lista_producto.insert(END, producto[0])
+
+    for producto in producto_valido:
+        catalogo_lista_precio.insert(END, producto[1])
+
+    #WIDGETS EN PANTALLA
+
+    #atras_boton.grid(row = 1, column = 1)
+    catalogo_lista_producto.grid(row = 13, column = 1)
+    catalogo_lista_precio.grid(row = 13, column = 2)
+    catalogo_productos.grid(row = 12, column = 1)
+    precios_productos.grid(row = 12, column = 2)
+
+
+  
 
 
     ventana_carrito.mainloop()
+
