@@ -64,7 +64,10 @@ def carrito():
         lista_productos.delete(indice - 1)
         lista_cantidades.delete(indice - 1)
         lista_parciales.delete(indice - 1)
-        total = float(total_monto_label.get()) - float(lista_parciales(indice))#NUEVO
+        montoeliminado = lista_parciales.get(indice - 1)#NUEVO
+        print(montoeliminado)#NUEVO
+        total = float(total_monto_label.get()) - float(montoeliminado)#NUEVO, EL ERROR ESTA ACÁ
+        #total = float(total_monto_label.get()) - float(lista_parciales.get(indice))#NUEVO
         total_monto_label.delete(0,END)#NUEVO
         total_monto_label.insert(0,total)   #NUEVO
         #total_monto_label = total_monto_label - lista_parciales(indice)#NUEVO
