@@ -11,7 +11,7 @@ from tkinter.font import Font
 
 
 def carrito():    
-    ventana_carrito = tkinter.Toplevel() #eliminar toplevel
+    ventana_carrito = tkinter.Tk() #eliminar toplevel
     ventana_carrito.geometry("1080x720")
     ventana_carrito.title("Carro de compras")
     ventana_carrito.configure(bg = "blue4")
@@ -26,11 +26,15 @@ def carrito():
     
     def agregar_productosycantidades(producto):
         global resultado_total
-        
+        lista_productos.config(state="normal") #ACTIVA EL CAMPO PARA PODER HACER EL INGRESO
+        lista_cantidades.config(state="normal") #ACTIVA EL CAMPO PARA PODER HACER EL INGRESO
+        lista_parciales.config(state="normal")  #ACTIVA EL CAMPO PARA PODER HACER EL INGRESO
         #resultado_total = 0
         if buscar(producto) == True:
             lista_productos.insert(END, txt_producto.get())
+            
             lista_cantidades.insert(END, cantidad_entry.get())
+            
             
             
             db = sql.DataBase("superpy.db")
@@ -41,12 +45,15 @@ def carrito():
             resultado = resultado + float(precio_venta[0][0])*float(cantidad_entry.get())
             lista_parciales.insert(END, resultado)
             
+            
             resultado_total = resultado_total + resultado
             total = float(total_monto_label.get()) + float(precio_venta[0][0])*float(cantidad_entry.get())
             total_monto_label.delete(0,END)
             total_monto_label.insert(0,total)            
            
-      
+            lista_productos.config(state="disabled") #GRISA EL CAMPO
+            lista_cantidades.config(state="disabled") #GRISA EL CAMPO
+            lista_parciales.config(state="disabled") #GRISA EL CAMPO
     
 
   #  def itemseleccionado(): #ELIMINAR NO FUNCIONA
@@ -63,25 +70,36 @@ def carrito():
 
     def eliminar_productosycantidades():#ESTA FUNCION PERMITE ELIMINAR PRODUCTOS Y CANTIDADES AL MISMO TIEMPO
         indice = int(eliminar_entry.get())
+        lista_productos.config(state="normal") #ACTIVA EL CAMPO PARA PODER ELIMINAR
+        lista_cantidades.config(state="normal") #ACTIVA EL CAMPO PARA PODER ELIMINAR
+        lista_parciales.config(state="normal")  #ACTIVA EL CAMPO PARA PODER ELIMINAR
+
         lista_productos.delete(indice - 1)
         lista_cantidades.delete(indice - 1)
-        #lista_parciales.delete(indice - 1)VOLVER A ACTIVAR
+        #lista_parciales.delete(indice - 1) ELIMINAR
         
+        #montoeliminado = lista_cantidades.delete(indice - 1) ELIMINAR
+        #print(montoeliminado)    ELIMINAR
+        #lista_parciales.delete(indice - 1) #ELIMINAR
 
-        montoeliminado = lista_cantidades.delete(indice - 1)
-        print(montoeliminado)
-        #lista_parciales.delete(indice - 1)
-
-
-        montoeliminado = lista_parciales.get(indice - 1)#NUEVO
-        #print(montoeliminado.get(ac))#NUEVO
-        total = float(total_monto_label.get()) - float(montoeliminado)#NUEVO, EL ERROR ESTA ACÁ
-        #total = float(total_monto_label.get()) - float(lista_parciales.get(indice))#NUEVO
+        montoeliminado = lista_parciales.get(indice - 1)
+        
+        total = float(total_monto_label.get()) - float(montoeliminado)
+        
         total_monto_label.delete(0,END)#NUEVO
         total_monto_label.insert(0,total)   #NUEVO
-        #total_monto_label = total_monto_label - lista_parciales(indice)#NUEVO
+        
 
-        lista_parciales.delete(indice - 1)
+        lista_parciales.delete(indice - 1) 
+
+        lista_productos.config(state="disabled") #GRISA EL CAMPO
+        lista_cantidades.config(state="disabled") #GRISA EL CAMPO
+        lista_parciales.config(state="disabled") #GRISA EL CAMPO
+
+
+
+
+
 
     def buscar(producto):
         db = sql.DataBase("superpy.db") 
@@ -179,12 +197,18 @@ def carrito():
     lista_cantidades.grid(row = 5, column = 2) #LISTADO DE CANTIDADES
     lista_parciales.grid(row = 5, column = 3) #LISTADO DE PRECIOS
 
+    
+
+
     eliminar_label.grid(row = 10, column = 1) #TEXTO "INGRESE POSICION A ELIMINAR"
     eliminar_entry.grid(row = 10, column = 2) #CAJA PARA INGRESAR EL INDICE A ELIMINAR
     eliminar_boton.grid(row = 10, column = 3) #BOTON ELIMINAR
     catalogo_boton.grid(row = 9, column = 7) #BOTON DE CATALOGO
 
     terminar_boton.grid(row = 11, column = 5)
+
+
+
 
 
     #####
@@ -198,6 +222,7 @@ def carrito():
     precios_productos = tkinter.Label(ventana_carrito, text = "Precios unitarios")
 
     catalogo_lista_producto = tkinter.Listbox(ventana_carrito)# LISTA DE PRODUCTOS EN CATALOGO
+    
     catalogo_lista_precio = tkinter.Listbox(ventana_carrito)#LISTA DE PRECIOS EN CATALOGO
 
     for producto in producto_valido:
@@ -206,6 +231,11 @@ def carrito():
     for producto in producto_valido:
         catalogo_lista_precio.insert(END, producto[1])
 
+
+    catalogo_lista_producto.config(state="disabled") #ESTO PERMITE GRISAR LA LISTA DE CATALOGOS
+    catalogo_lista_precio.config(state="disabled")  #ESTO PERMITE GRISAR LA LISTA DE CATALOGOS
+
+    
     #WIDGETS EN PANTALLA
 
     #atras_boton.grid(row = 1, column = 1)
@@ -224,7 +254,7 @@ def carrito():
 
 
 def terminar():
-    ventana_terminar = tkinter.Tk()
+    ventana_terminar = tkinter.Toplevel()
     ventana_terminar.geometry("800x400")
     ventana_terminar.title("Ventana Principal")
     ventana_terminar.configure(bg = "dark green")
