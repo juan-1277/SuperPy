@@ -2,14 +2,16 @@ import tkinter
 from tkinter import *
 from Proyecto.producto import Producto
 
+
 def creacion_producto():
     producto = Producto()
     producto.crearProducto()   
 
 
 
+
 def menu():
-    ventana = tkinter.Tk()
+    ventana = tkinter.Toplevel() #eliminar toplevel
     ventana.geometry("400x300")
     ventana.title("MENU")
     #label = tkinter.Label(ventana, text = "LOGIN SUPERMARK")

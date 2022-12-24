@@ -6,7 +6,7 @@ from Gui.tk_Login_adm import login_adm
 
 
 def ingresar():
-    ventana = tkinter.Tk()
+    ventana = tkinter.Toplevel() #eliminar toplevel
     ventana.geometry("800x400")
     ventana.title("Ventana Principal")
     ventana.configure(bg = "dark green")

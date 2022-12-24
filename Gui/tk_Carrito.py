@@ -3,13 +3,15 @@ from tkinter import *
 from Database import sql
 from tkinter import messagebox
 from Gui.tk_Productos import catalogo
-from Gui.tk_Terminar import terminar #ELIMINAR
+from tkinter.font import Font
+#from Gui.tk_Terminar import terminar #ELIMINAR
+
 
 
 
 
 def carrito():    
-    ventana_carrito = tkinter.Tk()
+    ventana_carrito = tkinter.Toplevel() #eliminar toplevel
     ventana_carrito.geometry("1080x720")
     ventana_carrito.title("Carro de compras")
     ventana_carrito.configure(bg = "blue4")
@@ -47,9 +49,9 @@ def carrito():
       
     
 
-    def itemseleccionado(): #ELIMINAR
-        for item in catalogo_lista_producto():
-            LB = tkinter.Label(ventana_carrito, text = catalogo_lista_producto.get(item)).pack()
+  #  def itemseleccionado(): #ELIMINAR NO FUNCIONA
+   #     for item in catalogo_lista_producto():
+    #        LB = tkinter.Label(ventana_carrito, text = catalogo_lista_producto.get(item)).pack()
 
 
 
@@ -108,6 +110,14 @@ def carrito():
             #    if password == usuario_valido[0][1]:
             #       tkinter.messagebox.showinfo(title="Inicio", message="Inicio de sesión exitoso")
             #db.close() #siempre cerrar la conexión a la base de datos
+
+    
+
+
+
+
+
+
 
     ##CREACION DE WIDGETS
     
@@ -210,3 +220,25 @@ def carrito():
 
     ventana_carrito.mainloop()
 
+
+
+
+def terminar():
+    ventana_terminar = tkinter.Tk()
+    ventana_terminar.geometry("800x400")
+    ventana_terminar.title("Ventana Principal")
+    ventana_terminar.configure(bg = "dark green")
+    
+
+    pagar = tkinter.Entry(ventana_terminar, font=Font(size=15))
+    pagar.insert(0,total_monto_label.get()) 
+
+    texto_gracias = tkinter.Label(ventana_terminar, text = "Muchas gracias por elegirnos", font=Font(size=15))
+    texto_pagar = tkinter.Label(ventana_terminar, text = "Su monto total a pagar es de: $")
+
+
+          
+    pagar.place(x=200, y =100)
+    texto_gracias.place(x=200, y=0)
+    texto_pagar.place(x=0, y=100)
+    ventana_terminar.mainloop()
