@@ -138,7 +138,7 @@ def carrito():
     cantidades_label = tkinter.Label(ventana_carrito, text = "Cantidades")
     label_parciales = tkinter.Label(ventana_carrito, text = "Monto Parcial")
 
-    agregar_producto_boton = tkinter.Button(ventana_carrito, text = "AGREGAR", command = lambda: agregar_productosycantidades(txt_producto.get()), bg = "SkyBlue1")
+    agregar_producto_boton = tkinter.Button(ventana_carrito, text = "AGREGAR", command = lambda: agregar_productosycantidades(txt_producto.get()), bg = "medium orchid")
     #agregar_producto_boton = tkinter.Button(ventana_carrito, text = "AGREGAR", command = itemseleccionado)
     
     #agregar_cantidad_boton = tkinter.Button(ventana_carrito, text = "AGREGAR Q", command = agregar_cantidad)
@@ -244,7 +244,7 @@ def terminar():
     ventana_terminar = tkinter.Toplevel()
     ventana_terminar.geometry("800x400")
     ventana_terminar.title("Ventana Principal")
-    ventana_terminar.configure(bg = "dark green")
+    ventana_terminar.configure(bg = "blue4")
     
 
     pagar = tkinter.Entry(ventana_terminar, font=Font(size=15))

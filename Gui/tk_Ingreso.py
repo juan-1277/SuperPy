@@ -9,7 +9,7 @@ def ingresar():
     ventana = tkinter.Tk() #eliminar toplevel
     ventana.geometry("800x400")
     ventana.title("Ventana Principal")
-    ventana.configure(bg = "dark green")
+    ventana.configure(bg = "blue4")
     #Ventana nueva, para abirir el inicio de sesion. Esta ventana se abre al apretar en el boton INGRESAR
     #def log_inicio():
     #   login()
@@ -27,14 +27,14 @@ def ingresar():
 
     #Botones de ingreso al sistema o salida
     #boton1 = tkinter.Button(ventana, text = "INGRESAR", bg = "orange", command = carrito)
-    boton1 = tkinter.Button(ventana, text = "Ingresar - Cliente", bg = "PaleGreen1", command = login)
+    boton1 = tkinter.Button(ventana, text = "Ingresar - Cliente", bg = "medium orchid", command = login)
     boton1.pack()
 
 
-    boton2 = tkinter.Button(ventana, text = "Ingresar - Administrador", bg = "PaleGreen1", command = login_adm)
+    boton2 = tkinter.Button(ventana, text = "Ingresar - Administrador", bg = "medium orchid", command = login_adm)
     boton2.pack()
 
-    boton_exit = tkinter.Button(ventana, text = "EXIT", bg = "PaleGreen1", command = close)
+    boton_exit = tkinter.Button(ventana, text = "EXIT", bg = "medium orchid", command = close)
     boton_exit.pack()
 
 
