@@ -26,7 +26,6 @@ def carrito():
         lista_productos.config(state="normal") #ACTIVA EL CAMPO PARA PODER HACER EL INGRESO
         lista_cantidades.config(state="normal") #ACTIVA EL CAMPO PARA PODER HACER EL INGRESO
         lista_parciales.config(state="normal")  #ACTIVA EL CAMPO PARA PODER HACER EL INGRESO
-        total_monto_label.config(state="normal")
 
         #resultado_total = 0
         if buscar(producto) == True:
@@ -48,7 +47,7 @@ def carrito():
             lista_productos.config(state="disabled") #GRISA EL CAMPO PARA VOLVER A DEJARLO BLOQUEADO HASTA EL PROXIMO EVENTO
             lista_cantidades.config(state="disabled") #GRISA EL CAMPO PARA VOLVER A DEJARLO BLOQUEADO HASTA EL PROXIMO EVENTO
             lista_parciales.config(state="disabled") #GRISA EL CAMPO PARA VOLVER A DEJARLO BLOQUEADO HASTA EL PROXIMO EVENTO
-            total_monto_label.config(state="disabled")
+    
 
   #  def itemseleccionado(): #ELIMINAR NO FUNCIONA
    #     for item in catalogo_lista_producto():
@@ -61,7 +60,6 @@ def carrito():
         lista_productos.config(state="normal") #ACTIVA EL CAMPO PARA PODER ELIMINAR
         lista_cantidades.config(state="normal") #ACTIVA EL CAMPO PARA PODER ELIMINAR
         lista_parciales.config(state="normal")  #ACTIVA EL CAMPO PARA PODER ELIMINAR
-        total_monto_label.config(state="normal")
 
         lista_productos.delete(indice - 1)
         lista_cantidades.delete(indice - 1)
@@ -84,7 +82,7 @@ def carrito():
         lista_productos.config(state="disabled") #GRISA EL CAMPO PARA VOLVER A DEJARLO BLOQUEADO HASTA EL PROXIMO EVENTO
         lista_cantidades.config(state="disabled") #GRISA EL CAMPO PARA VOLVER A DEJARLO BLOQUEADO HASTA EL PROXIMO EVENTO
         lista_parciales.config(state="disabled") #GRISA EL CAMPO PARA VOLVER A DEJARLO BLOQUEADO HASTA EL PROXIMO EVENTO
-        total_monto_label.config(state="disabled")
+
 
 
     def buscar(producto):
@@ -132,7 +130,6 @@ def carrito():
     total_label = tkinter.Label(ventana_carrito, text = "Total a pagar $")
     total_monto_label = tkinter.Entry(ventana_carrito)
     total_monto_label.insert(0,"0.0")
-    total_monto_label.config(state="disabled")
 
     lista_label = tkinter.Label(ventana_carrito, text = "Lista de productos")
     cantidades_label = tkinter.Label(ventana_carrito, text = "Cantidades")
