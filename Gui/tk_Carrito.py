@@ -63,14 +63,23 @@ def carrito():
         indice = int(eliminar_entry.get())
         lista_productos.delete(indice - 1)
         lista_cantidades.delete(indice - 1)
-        lista_parciales.delete(indice - 1)
+        #lista_parciales.delete(indice - 1)VOLVER A ACTIVAR
+        
+
+        montoeliminado = lista_cantidades.delete(indice - 1)
+        print(montoeliminado)
+        #lista_parciales.delete(indice - 1)
+
+
         montoeliminado = lista_parciales.get(indice - 1)#NUEVO
-        print(montoeliminado)#NUEVO
+        #print(montoeliminado.get(ac))#NUEVO
         total = float(total_monto_label.get()) - float(montoeliminado)#NUEVO, EL ERROR ESTA ACÁ
         #total = float(total_monto_label.get()) - float(lista_parciales.get(indice))#NUEVO
         total_monto_label.delete(0,END)#NUEVO
         total_monto_label.insert(0,total)   #NUEVO
         #total_monto_label = total_monto_label - lista_parciales(indice)#NUEVO
+
+        lista_parciales.delete(indice - 1)
 
     def buscar(producto):
         db = sql.DataBase("superpy.db") 
