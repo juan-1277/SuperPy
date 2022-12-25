@@ -1,11 +1,11 @@
 import tkinter
 from tkinter import *
-from Proyecto.producto import Producto
+from Gui.tk_Funciones import generacion_productos
 
 
-def creacion_producto():
-    producto = Producto()
-    producto.crearProducto()   
+#def creacion_producto():
+ #   producto = Producto()
+  #  producto.crearProducto()   
 
 
 
@@ -22,7 +22,7 @@ def menu():
 
     
 
-    boton1 = tkinter.Button(ventana, text = "Productos", bg = "orange", command = creacion_producto)
+    boton1 = tkinter.Button(ventana, text = "Productos", bg = "orange", command = generacion_productos)
     boton1.pack()
 
     boton2 = tkinter.Button(ventana, text = "Usuarios", bg = "orange")
