@@ -16,6 +16,12 @@ def informacion_productos():
     ventana_productos.title("Informacion relevante para el producto")
     ventana_productos.configure(bg = "blue4")
 
+    def crear_producto():
+        db = sql.DataBase("superpy.db")
+        db.insert('producto','id_categoria,codigo,nombre,precio_venta,stock,descripcion', f'"{categoria_entry}","{codigo_entry}","{nombre_entry}","{precio_entry}","{stock_entry}","{descripcion_entry}"')
+        db.close()
+
+
 
     #CREACION DE WIDGETS
     id_producto_label = tkinter.Label(ventana_productos, text = "Ingrese ID del producto")
@@ -71,10 +77,7 @@ def informacion_productos():
     categorìas_listbox.grid(row = 9, column = 2)    
     descripcion_categorias_listbox.grid(row = 9, column = 3)
 
-    def crear_producto():
-        db = sql.DataBase("superpy.db")
-        db.insert("producto","id_categoria,codigo,nombre,precio_venta,stock,descripcion", f"{categoria_entry.get()}','{codigo_entry.get()}',{nombre_entry.get()}','{precio_entry.get()}',{stock_entry.get()}','{descripcion_entry.get()}'")
-        db.close()
+    
 
     cargar_producto = tkinter.Button(ventana_productos, text = "CREAR", command = crear_producto)
     cargar_producto.grid(row = 10, column = 7)
@@ -97,7 +100,7 @@ def informacion_productos():
 ####
     db.close()
     
-    
+        
     
     ventana_productos.mainloop()
 
