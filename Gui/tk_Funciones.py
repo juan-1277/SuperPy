@@ -26,19 +26,19 @@ def informacion_productos():
     descripcion_label = tkinter.Label(ventana_productos, text = "Ingrese la descripciòn: ")
     categoria_label = tkinter.Label(ventana_productos, text ="Ingrese la categorìa del producto")
 
-    def crear_producto():
-        db = sql.DataBase("superpy.db")
-        db.insert("producto","id_producto,id_categoria,codigo,nombre,precio_venta", f"{id_producto_entry},'{categoria_entry}','{codigo_entry}',{nombre_entry}','{precio_entry}'")
-        db.close()
+    
 
-    cargar_producto = tkinter.Button(ventana_productos, text = "CREAR", command = crear_producto)
+    
+
+
+    
 
     id_producto_entry = tkinter.Entry(ventana_productos)
     codigo_entry = tkinter.Entry(ventana_productos)
     nombre_entry = tkinter.Entry(ventana_productos)
     precio_entry = tkinter.Entry(ventana_productos)
     stock_entry = tkinter.Entry(ventana_productos)
-    descripcion = tkinter.Entry(ventana_productos)
+    descripcion_entry = tkinter.Entry(ventana_productos)
     categoria_entry = tkinter.Entry(ventana_productos)
     categorìas_label = tkinter.Label(ventana_productos, text = "Categorìas")
     descripcion_categorias_label = tkinter.Label(ventana_productos, text = "Descripciones")
@@ -59,7 +59,7 @@ def informacion_productos():
     nombre_entry.grid(row = 3, column = 2)
     precio_entry.grid(row = 4, column = 2) 
     stock_entry.grid(row = 5, column = 2) 
-    descripcion.grid(row = 6, column = 2) 
+    descripcion_entry.grid(row = 6, column = 2) 
     categoria_label.grid(row = 7, column = 1) 
     categoria_entry.grid(row = 7, column = 2)
 
@@ -70,6 +70,13 @@ def informacion_productos():
     idcategorias_listbox.grid(row = 9, column = 1)
     categorìas_listbox.grid(row = 9, column = 2)    
     descripcion_categorias_listbox.grid(row = 9, column = 3)
+
+    def crear_producto():
+        db = sql.DataBase("superpy.db")
+        db.insert("producto","id_categoria,codigo,nombre,precio_venta,stock,descripcion", f"{categoria_entry.get()}','{codigo_entry.get()}',{nombre_entry.get()}','{precio_entry.get()}',{stock_entry.get()}','{descripcion_entry.get()}'")
+        db.close()
+
+    cargar_producto = tkinter.Button(ventana_productos, text = "CREAR", command = crear_producto)
     cargar_producto.grid(row = 10, column = 7)
     
 
@@ -88,7 +95,7 @@ def informacion_productos():
     for categoria in categorias:
         descripcion_categorias_listbox.insert(END, categoria[2])
 ####
-
+    db.close()
     
     
     
