@@ -2,6 +2,7 @@ import tkinter
 from tkinter import *
 from Database import sql
 from tkinter import messagebox
+from tkinter import ttk
 
  
 
@@ -34,15 +35,6 @@ def informacion_productos():
     descripcion_label = tkinter.Label(ventana_productos, text = "Ingrese la descripciòn: ")
     categoria_label = tkinter.Label(ventana_productos, text ="Ingrese la categorìa del producto")
 
-    lista_categorias_label = tkinter.Label(ventana_productos, text = "Categorìa")
-    lista_codigos_label = tkinter.Label(ventana_productos, text = "Codigo")
-    lista_nombre_label = tkinter.Label(ventana_productos, text = "Nombre")
-    lista_descripcion_label = tkinter.Label(ventana_productos, text = "Descripcion")
-    lista_precio_label = tkinter.Label(ventana_productos, text = "Precio")
-    lista_stock_label = tkinter.Label(ventana_productos, text = "Stock")
-    
-
-
 
 
 
@@ -52,21 +44,32 @@ def informacion_productos():
     precio_entry = tkinter.Entry(ventana_productos)
     stock_entry = tkinter.Entry(ventana_productos)
     descripcion_entry = tkinter.Entry(ventana_productos)
-    categoria_entry = tkinter.Entry(ventana_productos)
-    categorìas_label = tkinter.Label(ventana_productos, text = "Categorìas")
-    descripcion_categorias_label = tkinter.Label(ventana_productos, text = "Descripciones")
-    id_categorias_label = tkinter.Label(ventana_productos, text = "ID Categorìa")
-    categorìas_listbox = tkinter.Listbox(ventana_productos)# LISTA DE PRODUCTOS EN CATALOGO    
-    descripcion_categorias_listbox = tkinter.Listbox(ventana_productos, width=50)#LISTA DE PRECIOS EN CATALOGO
-    idcategorias_listbox = tkinter.Listbox(ventana_productos)
+    categoria_entry = tkinter.Entry(ventana_productos)    
+    tree = ttk.Treeview(ventana_productos, column = ("Categoría","Código","Nombre","Descripción","Precio Venta","Stock"), show='headings')
+    
+    # Add a Treeview widget CORRESPONDE AL TREEVIEW DE LOS PRODUCTOS
+    tree.column("# 1", anchor=CENTER, width= 60)
+    tree.heading("# 1", text="Categoría")
+    tree.column("# 2", anchor=CENTER, width= 60)
+    tree.heading("# 2", text="Código")
+    tree.column("# 3", anchor=CENTER, width= 150)
+    tree.heading("# 3", text="Nombre")
+    tree.column("# 4", anchor=CENTER, width= 200)
+    tree.heading("# 4", text="Descripción")
+    tree.column("# 5", anchor=CENTER, width= 60)
+    tree.heading("# 5", text="Precio Venta")
+    tree.column("# 6", anchor=CENTER, width= 60)
+    tree.heading("# 6", text="Stock")
 
-    lista_categorias = tkinter.Listbox(ventana_productos)
-    lista_codigo = tkinter.Listbox(ventana_productos)
-    lista_nombre = tkinter.Listbox(ventana_productos)
-    lista_precio = tkinter.Listbox(ventana_productos)
-    lista_stock = tkinter.Listbox(ventana_productos)
-    lista_descripcion = tkinter.Listbox(ventana_productos)
-
+    tree2 = ttk.Treeview(ventana_productos, column = ("ID Categoría","Categorías","Descripciones"), show='headings', height= 4)
+    # Add a Treeview widget CORRESPONDE AL TREEVIEW DE LOS PRODUCTOS
+    tree2.column("# 1", anchor=CENTER, width= 60)
+    tree2.heading("# 1", text="ID Categoría")
+    tree2.column("# 2", anchor=CENTER, width= 60)
+    tree2.heading("# 2", text="Categorías")
+    tree2.column("# 3", anchor=CENTER, width= 150)
+    tree2.heading("# 3", text="Descripciones")
+    
     #COLOCACION DE WIDGETS EN PANTALLA
     id_producto_label.grid(row = 1, column = 1)
     codigo_label.grid(row = 2, column = 1)
@@ -83,91 +86,33 @@ def informacion_productos():
     descripcion_entry.grid(row = 6, column = 2) 
     categoria_label.grid(row = 7, column = 1) 
     categoria_entry.grid(row = 7, column = 2)
-
-    id_categorias_label.grid(row = 8, column = 1)
-    categorìas_label.grid(row = 8, column = 2)
-    descripcion_categorias_label.grid(row = 8, column = 3)
-    
-    idcategorias_listbox.grid(row = 9, column = 1)
-    categorìas_listbox.grid(row = 9, column = 2)    
-    descripcion_categorias_listbox.grid(row = 9, column = 3)
-
-    
+ 
 
     cargar_producto = tkinter.Button(ventana_productos, text = "CREAR", command = crear_producto)
     cargar_producto.grid(row = 10, column = 7)
     
-
-    lista_categorias_label.grid(row = 11, column = 1)
-    lista_codigos_label.grid(row = 11, column = 2)
-    lista_nombre_label.grid(row = 11, column = 3)
-    lista_descripcion_label.grid(row = 11, column = 4)
-    lista_precio_label.grid(row = 11, column = 5)
-    lista_stock_label.grid(row = 11, column = 6) 
-
-
-    lista_categorias.grid(row = 12, column = 1)
-    lista_codigo.grid(row = 12, column = 2)
-    lista_nombre.grid(row = 12, column = 3)
-    lista_precio.grid(row = 12, column = 4)
-    lista_stock.grid(row = 12, column = 5)
-    lista_descripcion.grid(row = 12, column = 6)
-
-
+    tree.place(x = 0, y = 400)
+    tree2.place(x = 0, y = 200)
     
-
-
-
     #LISTAS PARA MOSTRAR LAS CATEGORIAS DISPONIBLES
 
     db = sql.DataBase('superpy.db')
     categorias = db.select_all("categoria","id_categoria,nombre,descripcion")
-    #print("Nro\tNombre")
-    #for categoria in categorias:
-      #  print(f"{categoria[0]}\t{categoria[1]}")
-
+    
     for categoria in categorias:
-        idcategorias_listbox.insert(END, categoria[0])
+        tree2.insert('','end', text="1",values=((categoria[0], categoria[1], categoria[2])))
 
-    for categoria in categorias:
-        categorìas_listbox.insert(END, categoria[1])
-
-    for categoria in categorias:
-        descripcion_categorias_listbox.insert(END, categoria[2])
+    
 
     #LISTAS PARA MOSTRAR LOS PRODUCTOS EN LA BASE DE DATOS
     db = sql.DataBase('superpy.db')
-    productos = db.select_all("producto","id_categoria,codigo,nombre,precio_venta,stock,descripcion")
+    productos = db.select_all("producto","id_categoria,codigo,nombre,descripcion,precio_venta,stock")
+    for producto in productos:
+    # Insert the data in Treeview widget
+        tree.insert('','end', text="1",values=((producto[0], producto[1], producto[2], producto[3], producto[4], producto[5])))
     
-
-    for producto in productos:
-        lista_categorias.insert(END, producto[0])
-
-    for producto in productos:
-        lista_codigo.insert(END, producto[1])
-
-    for producto in productos:
-        lista_nombre.insert(END, producto[2])
-
-    for producto in productos:
-        lista_precio.insert(END, producto[3])    
     
-    for producto in productos:
-        lista_stock.insert(END, producto[4])
-
-    for producto in productos:
-        lista_descripcion.insert(END, producto[5])  
-
-
-
-
-
-
-
-
-
-
-
+        
 
 
 
