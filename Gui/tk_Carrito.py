@@ -4,6 +4,7 @@ from Database import sql
 from tkinter import messagebox
 from Gui.tk_Catalogo import catalogo
 from tkinter.font import Font
+from tkinter import ttk
 #from Gui.tk_Terminar import terminar #ELIMINAR
 
 
@@ -161,6 +162,7 @@ def carrito():
 
     terminar_boton = tkinter.Button(ventana_carrito, text = "TERMINAR", command = terminar)
 
+
     #COLOCACION DE WIDGETS EN PANTALLA
 
     titulo_label.grid(row = 0, column = 3) #TITULO DE LA VENTADA
@@ -202,34 +204,52 @@ def carrito():
     db = sql.DataBase("superpy.db")
     # HAY QUE RECORRER LA LISTA, SEGURAMENTE CON i Y j. Como hago para saber hasta donde ponerles los limites?
     #a cada parametro?
+
+    tree3 = ttk.Treeview(ventana_carrito, column = ("Catalogo Productos","Precios"), show='headings', selectmode="browse")
+    tree3.column("# 1", anchor=CENTER, width= 120)
+    tree3.heading("# 1", text="Catalogo productos")
+    tree3.column("# 2", anchor=CENTER, width= 60)
+    tree3.heading("# 2", text="Precios")
+
     producto_valido = db.select_all("producto","nombre,precio_venta")
 
-
-    catalogo_productos = tkinter.Label(ventana_carrito, text = "Catalogo de productos")
-    precios_productos = tkinter.Label(ventana_carrito, text = "Precios unitarios")
-
-    catalogo_lista_producto = tkinter.Listbox(ventana_carrito)# LISTA DE PRODUCTOS EN CATALOGO
+    ######
+   # db = sql.DataBase('superpy.db')
+    #categorias = db.select_all("categoria","id_categoria,nombre,descripcion")
     
-    catalogo_lista_precio = tkinter.Listbox(ventana_carrito)#LISTA DE PRECIOS EN CATALOGO
+    for producto_val in producto_valido:
+        tree3.insert('','end', text="1",values=((producto_val[0], producto_val[1])))
 
-    for producto in producto_valido:
-        catalogo_lista_producto.insert(END, producto[0])
+    
+    tree3.place(x=0, y=330)
 
-    for producto in producto_valido:
-        catalogo_lista_precio.insert(END, producto[1])
+    ######
+
+    #catalogo_productos = tkinter.Label(ventana_carrito, text = "Catalogo de productos")
+    #precios_productos = tkinter.Label(ventana_carrito, text = "Precios unitarios")
+
+    #catalogo_lista_producto = tkinter.Listbox(ventana_carrito)# LISTA DE PRODUCTOS EN CATALOGO
+    
+    #catalogo_lista_precio = tkinter.Listbox(ventana_carrito)#LISTA DE PRECIOS EN CATALOGO
+
+    #for producto in producto_valido:
+     #   catalogo_lista_producto.insert(END, producto[0])
+
+    #for producto in producto_valido:
+     #   catalogo_lista_precio.insert(END, producto[1])
 
 
-    catalogo_lista_producto.config(state="disabled") #ESTO PERMITE GRISAR LA LISTA DE CATALOGOS
-    catalogo_lista_precio.config(state="disabled")  #ESTO PERMITE GRISAR LA LISTA DE CATALOGOS
+    #catalogo_lista_producto.config(state="disabled") #ESTO PERMITE GRISAR LA LISTA DE CATALOGOS
+    #catalogo_lista_precio.config(state="disabled")  #ESTO PERMITE GRISAR LA LISTA DE CATALOGOS
 
     
     #WIDGETS EN PANTALLA
 
     #atras_boton.grid(row = 1, column = 1)
-    catalogo_lista_producto.grid(row = 13, column = 1)
-    catalogo_lista_precio.grid(row = 13, column = 2)
-    catalogo_productos.grid(row = 12, column = 1)
-    precios_productos.grid(row = 12, column = 2)
+    #catalogo_lista_producto.grid(row = 13, column = 1)
+    #catalogo_lista_precio.grid(row = 13, column = 2)
+    #catalogo_productos.grid(row = 12, column = 1)
+    #precios_productos.grid(row = 12, column = 2)
 
 
   
