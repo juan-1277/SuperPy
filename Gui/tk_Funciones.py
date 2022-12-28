@@ -27,7 +27,7 @@ def informacion_productos():
             messagebox.showerror("ERROR", "El producto NO se ha agregado, revise los datos ingresados.")
         
     #CREACION DE WIDGETS
-    id_producto_label = tkinter.Label(ventana_productos, text = "Ingrese ID del producto")
+    #id_producto_label = tkinter.Label(ventana_productos, text = "Ingrese ID del producto")
     codigo_label = tkinter.Label(ventana_productos, text = "Ingrese el codigo del producto: ")
     nombre_label = tkinter.Label(ventana_productos, text = "Ingrese el nombre del producto: ")
     precio_label = tkinter.Label(ventana_productos, text = "Ingrese el precio del prdocuto: ")
@@ -35,10 +35,7 @@ def informacion_productos():
     descripcion_label = tkinter.Label(ventana_productos, text = "Ingrese la descripciòn: ")
     categoria_label = tkinter.Label(ventana_productos, text ="Ingrese la categorìa del producto")
 
-
-
-
-    id_producto_entry = tkinter.Entry(ventana_productos)
+    #id_producto_entry = tkinter.Entry(ventana_productos)
     codigo_entry = tkinter.Entry(ventana_productos)
     nombre_entry = tkinter.Entry(ventana_productos)
     precio_entry = tkinter.Entry(ventana_productos)
@@ -65,20 +62,20 @@ def informacion_productos():
     # Add a Treeview widget CORRESPONDE AL TREEVIEW DE LOS PRODUCTOS
     tree2.column("# 1", anchor=CENTER, width= 60)
     tree2.heading("# 1", text="ID Categoría")
-    tree2.column("# 2", anchor=CENTER, width= 60)
+    tree2.column("# 2", anchor=CENTER, width= 150)
     tree2.heading("# 2", text="Categorías")
-    tree2.column("# 3", anchor=CENTER, width= 150)
+    tree2.column("# 3", anchor=CENTER, width= 300)
     tree2.heading("# 3", text="Descripciones")
     
     #COLOCACION DE WIDGETS EN PANTALLA
-    id_producto_label.grid(row = 1, column = 1)
+   # id_producto_label.grid(row = 1, column = 1)
     codigo_label.grid(row = 2, column = 1)
     nombre_label.grid(row = 3, column = 1)
     precio_label.grid(row = 4, column = 1)
     stock_label.grid(row = 5, column = 1)
     descripcion_label.grid(row = 6, column = 1) 
 
-    id_producto_entry.grid(row = 1, column = 2)
+   # id_producto_entry.grid(row = 1, column = 2)
     codigo_entry.grid(row = 2, column = 2) 
     nombre_entry.grid(row = 3, column = 2)
     precio_entry.grid(row = 4, column = 2) 
