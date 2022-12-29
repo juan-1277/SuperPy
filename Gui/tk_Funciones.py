@@ -13,7 +13,7 @@ from tkinter import ttk
 
 def informacion_productos():
     ventana_productos = tkinter.Tk() 
-    ventana_productos.geometry("1200x800")
+    ventana_productos.geometry("1000x800")
     ventana_productos.title("Informacion relevante para el producto")
     ventana_productos.configure(bg = "blue4")
 
@@ -67,6 +67,8 @@ def informacion_productos():
     tree2.column("# 3", anchor=CENTER, width= 300)
     tree2.heading("# 3", text="Descripciones")
     
+
+
     #COLOCACION DE WIDGETS EN PANTALLA
    # id_producto_label.grid(row = 1, column = 1)
     codigo_label.grid(row = 2, column = 1)
@@ -88,7 +90,7 @@ def informacion_productos():
     cargar_producto = tkinter.Button(ventana_productos, text = "CREAR", command = crear_producto)
     cargar_producto.grid(row = 10, column = 7)
     
-    tree.place(x = 0, y = 400)
+    tree.place(x = 0, y = 350)
     tree2.place(x = 0, y = 200)
     
     #LISTAS PARA MOSTRAR LAS CATEGORIAS DISPONIBLES
@@ -107,6 +109,11 @@ def informacion_productos():
     for producto in productos:
     # Insert the data in Treeview widget
         tree.insert('','end', text="1",values=((producto[0], producto[1], producto[2], producto[3], producto[4], producto[5])))
+    
+    treeScroll = ttk.Scrollbar(ventana_productos)
+    treeScroll.configure(orient="vertical",command=tree.yview)
+    tree.configure(yscrollcommand=treeScroll.set)
+    treeScroll.place(x=0+580+2,y=330, height=100)
     
     
         

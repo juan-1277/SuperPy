@@ -162,6 +162,12 @@ def carrito():
 
     terminar_boton = tkinter.Button(ventana_carrito, text = "TERMINAR", command = terminar)
 
+    tree3 = ttk.Treeview(ventana_carrito, column = ("Catalogo Productos","Precios"), show='headings', selectmode="browse")
+    tree3.column("# 1", anchor=CENTER, width= 120)
+    tree3.heading("# 1", text="Catalogo productos")
+    tree3.column("# 2", anchor=CENTER, width= 60)
+    tree3.heading("# 2", text="Precios")
+
 
     #COLOCACION DE WIDGETS EN PANTALLA
 
@@ -195,33 +201,28 @@ def carrito():
     catalogo_boton.grid(row = 9, column = 7) #BOTON DE CATALOGO
 
     terminar_boton.grid(row = 14, column = 10)
+    tree3.place(x=0, y=330)
 
 
+    
 
 
 
     #####
     db = sql.DataBase("superpy.db")
     # HAY QUE RECORRER LA LISTA, SEGURAMENTE CON i Y j. Como hago para saber hasta donde ponerles los limites?
-    #a cada parametro?
-
-    tree3 = ttk.Treeview(ventana_carrito, column = ("Catalogo Productos","Precios"), show='headings', selectmode="browse")
-    tree3.column("# 1", anchor=CENTER, width= 120)
-    tree3.heading("# 1", text="Catalogo productos")
-    tree3.column("# 2", anchor=CENTER, width= 60)
-    tree3.heading("# 2", text="Precios")
-
+    #a cada parametro? 
     producto_valido = db.select_all("producto","nombre,precio_venta")
-
     ######
    # db = sql.DataBase('superpy.db')
     #categorias = db.select_all("categoria","id_categoria,nombre,descripcion")
-    
     for producto_val in producto_valido:
         tree3.insert('','end', text="1",values=((producto_val[0], producto_val[1])))
 
-    
-    tree3.place(x=0, y=330)
+    tree3Scrollbar = ttk.Scrollbar(ventana_carrito)
+    tree3Scrollbar.configure(orient="vertical", command=tree3.yview)
+    tree3.configure(yscrollcommand=tree3Scrollbar.set)
+    tree3Scrollbar.place(x=0+180,y=330, height=225)
 
     ######
 
