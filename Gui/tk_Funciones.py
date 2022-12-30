@@ -113,7 +113,7 @@ def informacion_productos():
     treeScroll = ttk.Scrollbar(ventana_productos)
     treeScroll.configure(orient="vertical",command=tree.yview)
     tree.configure(yscrollcommand=treeScroll.set)
-    treeScroll.place(x=0+580+2,y=330, height=100)
+    treeScroll.place(x=0+580+2,y=350, height=225)
     
     
         

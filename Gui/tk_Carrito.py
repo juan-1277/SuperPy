@@ -116,16 +116,7 @@ def carrito():
             #       tkinter.messagebox.showinfo(title="Inicio", message="Inicio de sesión exitoso")
             #db.close() #siempre cerrar la conexión a la base de datos
 
-    
-
-
-
-
-
-
-
-    ##CREACION DE WIDGETS
-    
+    ##CREACION DE WIDGETS  
     
     
     #producto = StringVar()
@@ -145,7 +136,7 @@ def carrito():
     #agregar_cantidad_boton = tkinter.Button(ventana_carrito, text = "AGREGAR Q", command = agregar_cantidad)
     ingresar_label = tkinter.Label(ventana_carrito , text = "Ingresar un producto")
     cantidad_label = tkinter.Label(ventana_carrito , text = "Ingresar cantidad")
-    cantidad_entry = tkinter.Spinbox(ventana_carrito)
+    cantidad_entry = tkinter.Spinbox(ventana_carrito, from_=0, to=1000, increment=1)
     #txt_producto = tkinter.Entry(ventana_carrito, textvariable = producto)
     txt_producto = tkinter.Entry(ventana_carrito)
     buscar_boton = tkinter.Button(ventana_carrito, text = "BUSCAR", bg = "gray64", command = lambda: buscar(txt_producto.get()))
@@ -155,18 +146,20 @@ def carrito():
     lista_parciales = tkinter.Listbox(ventana_carrito) #AGREGADO
     
     eliminar_label = tkinter.Label(ventana_carrito, text = "Posición a eliminar")
-    eliminar_entry = tkinter.Spinbox(ventana_carrito)   
+    eliminar_entry = tkinter.Spinbox(ventana_carrito, from_=0, to=1000, increment=1)   
     eliminar_boton = tkinter.Button(ventana_carrito, text = "ELIMINAR", command = eliminar_productosycantidades, bg = "red")
     
     catalogo_boton = tkinter.Button(ventana_carrito, text = "CATALOGO", command = catalogo, bg = "SkyBlue1")
 
     terminar_boton = tkinter.Button(ventana_carrito, text = "TERMINAR", command = terminar)
 
-    tree3 = ttk.Treeview(ventana_carrito, column = ("Catalogo Productos","Precios"), show='headings', selectmode="browse")
-    tree3.column("# 1", anchor=CENTER, width= 120)
-    tree3.heading("# 1", text="Catalogo productos")
-    tree3.column("# 2", anchor=CENTER, width= 60)
-    tree3.heading("# 2", text="Precios")
+    catalogo_tree = ttk.Treeview(ventana_carrito, column = ("Catalogo Productos","Precios", "Stock"), show='headings', selectmode="browse")
+    catalogo_tree.column("# 1", anchor=CENTER, width= 120)
+    catalogo_tree.heading("# 1", text="Catalogo productos")
+    catalogo_tree.column("# 2", anchor=CENTER, width= 60)
+    catalogo_tree.heading("# 2", text="Precios")
+    catalogo_tree.column("# 3", anchor=CENTER, width= 60)
+    catalogo_tree.heading("# 3", text="Stock")
 
 
     #COLOCACION DE WIDGETS EN PANTALLA
@@ -192,37 +185,27 @@ def carrito():
     lista_cantidades.grid(row = 5, column = 2) #LISTADO DE CANTIDADES
     lista_parciales.grid(row = 5, column = 3) #LISTADO DE PRECIOS
 
-    
-
-
     eliminar_label.grid(row = 10, column = 1) #TEXTO "INGRESE POSICION A ELIMINAR"
     eliminar_entry.grid(row = 10, column = 2) #CAJA PARA INGRESAR EL INDICE A ELIMINAR
     eliminar_boton.grid(row = 10, column = 3) #BOTON ELIMINAR
     catalogo_boton.grid(row = 9, column = 7) #BOTON DE CATALOGO
 
     terminar_boton.grid(row = 14, column = 10)
-    tree3.place(x=0, y=330)
-
-
-    
-
-
+    catalogo_tree.place(x=0, y=330)
 
     #####
     db = sql.DataBase("superpy.db")
-    # HAY QUE RECORRER LA LISTA, SEGURAMENTE CON i Y j. Como hago para saber hasta donde ponerles los limites?
-    #a cada parametro? 
-    producto_valido = db.select_all("producto","nombre,precio_venta")
+    producto_valido = db.select_all("producto","nombre,precio_venta,stock")
     ######
    # db = sql.DataBase('superpy.db')
     #categorias = db.select_all("categoria","id_categoria,nombre,descripcion")
     for producto_val in producto_valido:
-        tree3.insert('','end', text="1",values=((producto_val[0], producto_val[1])))
+        catalogo_tree.insert('','end', text="1",values=((producto_val[0], producto_val[1], producto_val[2])))
 
-    tree3Scrollbar = ttk.Scrollbar(ventana_carrito)
-    tree3Scrollbar.configure(orient="vertical", command=tree3.yview)
-    tree3.configure(yscrollcommand=tree3Scrollbar.set)
-    tree3Scrollbar.place(x=0+180,y=330, height=225)
+    catalogo_treeScrollbar = ttk.Scrollbar(ventana_carrito)
+    catalogo_treeScrollbar.configure(orient="vertical", command=catalogo_tree.yview)
+    catalogo_tree.configure(yscrollcommand=catalogo_treeScrollbar.set)
+    catalogo_treeScrollbar.place(x=0+230,y=330, height=225)
 
     ######
 
