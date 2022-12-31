@@ -13,7 +13,7 @@ from tkinter import messagebox
 
 
 def carrito():    
-    ventana_carrito = tkinter.Tk() #eliminar toplevel
+    ventana_carrito = tkinter.Toplevel() #eliminar toplevel
     ventana_carrito.geometry("900x600")
     ventana_carrito.title("Carro de compras")
     ventana_carrito.configure(bg = "blue4")
