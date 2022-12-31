@@ -5,12 +5,16 @@ from tkinter import messagebox
 from Gui.tk_Catalogo import catalogo
 from tkinter.font import Font
 from tkinter import ttk
+from datetime import datetime
+from datetime import date
+#from Gui.tk_Login import usuario #nuevo
+from tkinter import messagebox
 #from Gui.tk_Terminar import terminar #ELIMINAR
 
 
 def carrito():    
     ventana_carrito = tkinter.Tk() #eliminar toplevel
-    ventana_carrito.geometry("1080x720")
+    ventana_carrito.geometry("900x600")
     ventana_carrito.title("Carro de compras")
     ventana_carrito.configure(bg = "blue4")
     #resultado = 0 
@@ -105,7 +109,6 @@ def carrito():
         else:
             messagebox.showinfo("Producto no valido", "Ingrese un producto válido")
             return False
-
             
     #def buscar(producto): 
             #db = sql.DataBase("superpy.db")
@@ -117,8 +120,6 @@ def carrito():
             #db.close() #siempre cerrar la conexión a la base de datos
 
     ##CREACION DE WIDGETS  
-    
-    
     #producto = StringVar()
     titulo_label = tkinter.Label(ventana_carrito, text = "Carro de compras")
     total_label = tkinter.Label(ventana_carrito, text = "Total a pagar $")
@@ -160,7 +161,6 @@ def carrito():
     catalogo_tree.heading("# 2", text="Precios")
     catalogo_tree.column("# 3", anchor=CENTER, width= 60)
     catalogo_tree.heading("# 3", text="Stock")
-
 
     #COLOCACION DE WIDGETS EN PANTALLA
 
@@ -236,13 +236,7 @@ def carrito():
     #precios_productos.grid(row = 12, column = 2)
 
 
-  
-
-
     ventana_carrito.mainloop()
-
-
-
 
 def terminar():
     ventana_terminar = tkinter.Toplevel()
@@ -258,10 +252,58 @@ def terminar():
 
     texto_gracias = tkinter.Label(ventana_terminar, text = "Muchas gracias por elegirnos", font=Font(size=15))
     texto_pagar = tkinter.Label(ventana_terminar, text = "Su monto total a pagar es de: $")
-
+    
+    finalizar_venta = tkinter.Button(ventana_terminar, text="FINALIZAR",command=finalizar)
+    
 
           
     pagar.place(x=200, y =100)
     texto_gracias.place(x=200, y=0)
     texto_pagar.place(x=0, y=100)
+    finalizar_venta.place(x=0,y=200)
     ventana_terminar.mainloop()
+
+def finalizar():
+    ventana_finalizar = tkinter.Toplevel()
+    ventana_finalizar.geometry("800x400")
+    ventana_finalizar.title("Ventas")
+    ventana_finalizar.configure(bg = "blue4")    
+    
+    def cargar_venta():
+        db = sql.DataBase("superpy.db") 
+        if len(tipocomprobante_entry.get()) > 0 and len(comprobante_entry.get()) > 0 and len(fecha_entry.get()) > 0 and len(total_monto_label.get()) > 0:
+            db = sql.DataBase("superpy.db")
+            db.insert('venta','tipo_comprobante,nro_comprobante,fecha,total', f'"{tipocomprobante_entry.get()}","{comprobante_entry.get()}","{fecha_entry.get()}","{total_monto_label.get()}"')
+            messagebox.showinfo("Agregado", "Venta generada.")
+            db.close()  
+        else:
+            messagebox.showerror("ERROR", "Algo salió mal, la venta no se ha generado .")
+
+    tipocomprobante_label = tkinter.Label(ventana_finalizar, text = "Ingrese el tipo de comrobante")
+    tipocomprobante_entry=tkinter.Entry(ventana_finalizar)
+    comprobante_label = tkinter.Label(ventana_finalizar, text = "Ingrese n° de comprobante")
+    comprobante_entry=tkinter.Entry(ventana_finalizar)
+    fecha = tkinter.Label(ventana_finalizar, text = "Fecha")
+    fecha_entry = tkinter.Entry(ventana_finalizar)
+    dia = date.today()
+    
+    fecha_entry.insert(END,dia)
+    print(fecha_entry)
+    total_entry = tkinter.Entry(ventana_finalizar)
+    total_entry.insert(END, total_monto_label)
+    cargar_venta_boton=tkinter.Button(ventana_finalizar,text= "CARGAR VENTA", command=cargar_venta)
+
+    tipocomprobante_label.grid(row=1,column=1)
+    tipocomprobante_entry.grid(row=1,column=2)
+    comprobante_label.grid(row=2,column=1)
+    comprobante_entry.grid(row=2,column=2)
+    fecha.grid(row=3,column=1)
+    fecha_entry.grid(row=3,column=2)
+    cargar_venta_boton.grid(row=4,column=1)
+    
+    
+    ventana_finalizar.mainloop()
+
+
+
+

@@ -4,20 +4,14 @@ from tkinter import *
 from Gui.tk_Login import login
 from Gui.tk_Login_adm import login_adm
 
-
 def ingresar():
     ventana = tkinter.Tk() #eliminar toplevel
     ventana.geometry("800x400")
     ventana.title("Ventana Principal")
     ventana.configure(bg = "blue4")
-    #Ventana nueva, para abirir el inicio de sesion. Esta ventana se abre al apretar en el boton INGRESAR
-    #def log_inicio():
-    #   login()
-
-
+    
     def close(): #corresponde a la funcion para cerrar la ventana Tkinter, invocada en el boton "Exit"
         ventana.destroy()
-
     #Titulo de inicio
     etiqueta = tkinter.Label(ventana, text = "BIENVENIDO A SUPERMARK")
     etiqueta.pack(fill = tkinter.X)

@@ -5,16 +5,18 @@ from Database import sql
 from tkinter import messagebox
 from Gui.tk_Carrito import carrito
 
+
 #Definición de la funcion consulta, que se ejecuta al apretar el boton INGRESAR.
 def consulta(email,password):
     print(email)
     print(password)
+    
     db = sql.DataBase("superpy.db")
     #usuario_valido = db.select("usuario", "email,password", email, password)
     #usuario_valido = db.select("usuario", "email,password",f'email = {email}')
     #usuario_valido = db.select("usuario", "email,password",f'email = {email}',f'password = {password}')
     usuario_valido = db.select("usuario", "password",f"email = '{email}'")
-
+    
 #SOLUCION PROPUESTA
     if len(usuario_valido)>0:
         if password == usuario_valido[0][0]:
@@ -22,6 +24,8 @@ def consulta(email,password):
             #ingresar()
             carrito()
             db.close() #siempre cerrar la conexión a la base de datos
+            #return usuario_valido #NUEVO
+            
         else:
             messagebox.showinfo("Incorrecto", "Contraseña incorrecta")
             #print("Contraseña incorrecta")
@@ -51,6 +55,7 @@ def login():
 
 
     #DEFINICION DE VARIABLES
+    global usuario #nuevo
     usuario = StringVar()
     password = StringVar()
 
