@@ -9,7 +9,7 @@ def ventas():
     ventana_ventas.title("Informacion relevante para el producto")
     ventana_ventas.configure(bg = "blue4")     
         
-    tree_ventas = ttk.Treeview(ventana_ventas, column = ("ID venta","ID Cliente","Tipo de Comprobante","N° de Comprobante","fecha","Total", "Estado", "ID usuario"), show='headings')
+    tree_ventas = ttk.Treeview(ventana_ventas, column = ("ID venta","ID Cliente","Tipo de Comprobante","N° de Comprobante","Fecha","Total", "Estado", "ID usuario"), show='headings')
 
     # Add a Treeview widget CORRESPONDE AL TREEVIEW DE LOS PRODUCTOS
     tree_ventas.column("# 1", anchor=CENTER, width= 60)
