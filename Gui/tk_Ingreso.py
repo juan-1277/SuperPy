@@ -22,14 +22,14 @@ def ingresar():
     #Botones de ingreso al sistema o salida
     #boton1 = tkinter.Button(ventana, text = "INGRESAR", bg = "orange", command = carrito)
     boton1 = tkinter.Button(ventana, text = "Ingresar - Cliente", bg = "medium orchid", command = login)
-    boton1.pack()
+    boton1.place(x=350,y=100)
 
 
     boton2 = tkinter.Button(ventana, text = "Ingresar - Administrador", bg = "medium orchid", command = login_adm)
-    boton2.pack()
+    boton2.place(x=331,y=150)
 
     boton_exit = tkinter.Button(ventana, text = "EXIT", bg = "medium orchid", command = close)
-    boton_exit.pack()
+    boton_exit.place(x=385,y=200)
 
 
     ventana.mainloop()

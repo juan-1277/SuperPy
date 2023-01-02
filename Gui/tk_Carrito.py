@@ -7,7 +7,7 @@ from tkinter.font import Font
 from tkinter import ttk
 from datetime import datetime
 from datetime import date
-#from Gui.tk_Login import usuario #nuevo
+
 from tkinter import messagebox
 #from Gui.tk_Terminar import terminar #ELIMINAR
 
@@ -270,6 +270,7 @@ def finalizar():
     ventana_finalizar.configure(bg = "blue4")    
     
     def cargar_venta():
+        
         db = sql.DataBase("superpy.db") 
         if len(tipocomprobante_entry.get()) > 0 and len(comprobante_entry.get()) > 0 and len(fecha_entry.get()) > 0 and len(total_monto_label.get()) > 0:
             db = sql.DataBase("superpy.db")

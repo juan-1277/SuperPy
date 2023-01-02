@@ -2,6 +2,7 @@ import tkinter
 from tkinter import *
 from Gui.tk_Funciones import informacion_productos
 from Gui.tk_Ventas import ventas
+from Gui.tk_Usuarios import usuarios
 
 
 #def creacion_producto():
@@ -28,12 +29,12 @@ def menu():
     boton1 = tkinter.Button(ventana, text = "Productos", bg = "medium orchid", command = informacion_productos)
     boton1.place(x=200, y = 100)
 
-    boton2 = tkinter.Button(ventana, text = "Usuarios", bg = "medium orchid")
+    boton2 = tkinter.Button(ventana, text = "Usuarios", bg = "medium orchid",command=usuarios)
     boton2.place(x=204, y = 125)
 
     boton3 = tkinter.Button(ventana, text = "Ventas", bg = "medium orchid",command=ventas)
-    boton3.place(x=205, y = 150)
+    boton3.place(x=208, y = 150)
 
     boton_exit = tkinter.Button(ventana, text = "Exit", bg = "medium orchid", command = close)
-    boton_exit.place(x=200, y = 175)
+    boton_exit.place(x=215, y = 175)
     ventana.mainloop()

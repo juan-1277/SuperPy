@@ -10,7 +10,7 @@ from Gui.tk_Carrito import carrito
 def consulta(email,password):
     print(email)
     print(password)
-    
+    global usuario_valido #nuevo
     db = sql.DataBase("superpy.db")
     #usuario_valido = db.select("usuario", "email,password", email, password)
     #usuario_valido = db.select("usuario", "email,password",f'email = {email}')
@@ -44,6 +44,7 @@ def consulta(email,password):
 
 
 #DEFINICION D ELA FUNCION DE APERTURA DEL LOGIN, SE ACTIVA AL EJECUTAR tk_TEST.py
+global usuario_entry#NUEVO
 def login():
     ventana_inicio = tkinter.Toplevel()
     ventana_inicio.title("Ventana inicio sesion")
@@ -56,6 +57,7 @@ def login():
 
     #DEFINICION DE VARIABLES
     global usuario #nuevo
+    global usuario_entry#NUEVO
     usuario = StringVar()
     password = StringVar()
 
