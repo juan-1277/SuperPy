@@ -2,7 +2,7 @@ import tkinter
 from tkinter import *
 from Database import sql
 from tkinter import messagebox
-from Gui.tk_Catalogo import catalogo
+#from Gui.tk_Catalogo import catalogo
 from tkinter.font import Font
 from tkinter import ttk
 from datetime import date
@@ -107,7 +107,7 @@ def carrito():
     eliminar_label = tkinter.Label(ventana_carrito, text = "Posición a eliminar")
     eliminar_entry = tkinter.Spinbox(ventana_carrito, from_=0, to=1000, increment=1)   
     eliminar_boton = tkinter.Button(ventana_carrito, text = "ELIMINAR", command = eliminar_productosycantidades, bg = "red")
-    catalogo_boton = tkinter.Button(ventana_carrito, text = "CATALOGO", command = catalogo, bg = "SkyBlue1")
+    #catalogo_boton = tkinter.Button(ventana_carrito, text = "CATALOGO", command = catalogo, bg = "SkyBlue1")
     terminar_boton = tkinter.Button(ventana_carrito, text = "TERMINAR", command = terminar)
     catalogo_tree = ttk.Treeview(ventana_carrito, column = ("Catalogo Productos","Precios", "Stock"), show='headings', selectmode="browse")
     catalogo_tree.column("# 1", anchor=CENTER, width= 120)
@@ -143,7 +143,7 @@ def carrito():
     eliminar_label.grid(row = 10, column = 1) #TEXTO "INGRESE POSICION A ELIMINAR"
     eliminar_entry.grid(row = 10, column = 2) #CAJA PARA INGRESAR EL INDICE A ELIMINAR
     eliminar_boton.grid(row = 10, column = 3) #BOTON ELIMINAR
-    catalogo_boton.grid(row = 9, column = 7) #BOTON DE CATALOGO
+    #catalogo_boton.grid(row = 9, column = 7) #BOTON DE CATALOGO
 
     terminar_boton.grid(row = 14, column = 10)
     catalogo_tree.place(x=0, y=330)
